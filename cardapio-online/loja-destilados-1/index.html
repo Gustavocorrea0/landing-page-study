@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=Work+Sans:wght@300;400;500;600&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0B0A09; }
+  * { box-sizing: border-box; }
+  a { color: oklch(0.70 0.12 95); text-decoration: none; }
+  a:hover { color: oklch(0.82 0.10 95); }
+  ::selection { background: oklch(0.70 0.12 95); color: #0B0A09; }
+  @keyframes bcFadeUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+  @keyframes bcFade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes bcGlow { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.06); } }
+  @keyframes bcMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes bcBarUp { from { transform: translateY(100%); } to { transform: none; } }
+  @keyframes bcBottleIn { from { opacity: 0; transform: translateY(46px) scale(0.94); } to { opacity: 1; transform: none; } }
+  @keyframes bcFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-14px) rotate(-0.6deg); } }
+  @keyframes bcSheen { 0% { transform: translateX(-140%) skewX(-14deg); opacity: 0; } 12% { opacity: 0.5; } 55% { opacity: 0.5; } 100% { transform: translateX(180%) skewX(-14deg); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.001s !important; } }
+  .cat-chip { cursor: pointer; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; padding: 11px 18px; border: 1px solid rgba(237,232,224,0.22); background: transparent; color: rgba(237,232,224,0.7); }
+  .cat-chip.is-active { border-color: oklch(0.70 0.12 95); background: oklch(0.70 0.12 95); color: #0B0A09; }
+  @media (max-width: 760px) {
+    [data-m="stack"] { grid-template-columns: minmax(0,1fr) !important; gap: 40px !important; }
+    [data-m="cards"] { grid-template-columns: repeat(auto-fill,minmax(150px,1fr)) !important; }
+    [data-m="cardfoot"] { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; }
+    [data-m="cardqty"] { width: 100% !important; justify-content: space-between !important; }
+    [data-m="cardqty"] > div { flex: 1 !important; justify-content: space-between !important; }
+    [data-m="cardqty"] > div > span { flex: 1 !important; text-align: center !important; }
+    [data-m="hero-img"] { order: -1; max-width: 320px; margin: 0 auto; }
+    [data-m="pad"] { padding-top: 72px !important; padding-bottom: 0 !important; padding-left: 18px !important; padding-right: 18px !important; }
+    [data-m="noborder"] { border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid rgba(237,232,224,0.14); padding-top: 34px !important; }
+    [data-m="cartrow"] { grid-template-columns: minmax(0,1fr) auto !important; row-gap: 10px !important; column-gap: 12px !important; }
+    [data-m="cartrow"] > *:nth-child(3) { text-align: left !important; min-width: 0 !important; }
+    [data-m="bar"] { flex-wrap: wrap; row-gap: 10px; }
+    [data-m="bar"] > a { width: 100%; text-align: center; }
+    [data-m="cta"] { width: 100%; text-align: center; }
+    [data-m="search"] { width: 100%; }
+  }
+</style>
+</helmet>
+<div style="background:#0B0A09;color:#EDE8E0;font-family:'Work Sans',system-ui,sans-serif;font-weight:300;overflow-x:hidden;padding-bottom:132px">
+
+  <div ref="{{ progressRef }}" style="position:fixed;top:0;left:0;height:2px;width:0%;background:oklch(0.70 0.12 95);z-index:100;transition:width 0.12s linear"></div>
+
+  <sc-if value="{{ showGate }}" hint-placeholder-val="{{ true }}">
+    <div style="position:fixed;inset:0;z-index:120;background:rgba(11,10,9,0.97);display:flex;align-items:center;justify-content:center;padding:24px">
+      <div style="max-width:460px;width:100%;border:1px solid rgba(237,232,224,0.14);padding:44px 36px;text-align:center">
+        <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.22em;color:oklch(0.70 0.12 95);text-transform:uppercase">Borcelle · Terra Boa/PR</div>
+        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:34px;line-height:1.1;margin:20px 0 12px">Você tem 18 anos ou mais?</h2>
+        <p style="font-size:14px;line-height:1.6;color:rgba(237,232,224,0.62);margin:0 0 28px">Venda de bebida alcoólica proibida para menores de 18 anos.</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <button onClick="{{ acceptAge }}" style="cursor:pointer;border:0;padding:16px;background:oklch(0.70 0.12 95);color:#0B0A09;font-family:'Work Sans',sans-serif;font-weight:600;font-size:15px;letter-spacing:0.02em" style-hover="background:oklch(0.80 0.11 95)">Sim, tenho 18 anos ou mais</button>
+          <button onClick="{{ denyAge }}" style="cursor:pointer;background:transparent;border:1px solid rgba(237,232,224,0.2);padding:16px;color:rgba(237,232,224,0.6);font-family:'Work Sans',sans-serif;font-size:14px" style-hover="border-color:rgba(237,232,224,0.45)">Não</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- HERO -->
+  <section data-screen-label="Hero" style="position:relative;padding:28px 24px 0;max-width:1240px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:56px">
+      <div style="font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:0.02em">Borcelle</div>
+      <div style="display:flex;align-items:center;gap:18px">
+        
+        <div style="display:flex;gap:8px">
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(237,232,224,0.22);color:rgba(237,232,224,0.72);transition:border-color 0.25s ease, color 0.25s ease, transform 0.25s ease" style-hover="border-color:oklch(0.70 0.12 95);color:oklch(0.70 0.12 95);transform:translateY(-2px)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+          </a>
+          <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(237,232,224,0.22);color:rgba(237,232,224,0.72);transition:border-color 0.25s ease, color 0.25s ease, transform 0.25s ease" style-hover="border-color:oklch(0.70 0.12 95);color:oklch(0.70 0.12 95);transform:translateY(-2px)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M14.1 21.9v-8.2h2.8l.4-3.2h-3.2V8.4c0-.9.3-1.6 1.6-1.6h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.9v3.2h2.8v8.2h3.4z"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div data-m="stack" style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr);gap:40px;align-items:center">
+      <div>
+        <h1 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(44px,6.4vw,88px);line-height:0.98;letter-spacing:-0.02em;margin:0;text-wrap:balance;animation:bcFadeUp 1s cubic-bezier(0.2,0.7,0.2,1) both">Sua bebida em Até uma hora</h1>
+        <p style="font-size:clamp(16px,1.5vw,20px);line-height:1.55;color:rgba(237,232,224,0.72);max-width:46ch;margin:28px 0 0;animation:bcFadeUp 1s cubic-bezier(0.2,0.7,0.2,1) 0.12s both">Catálogo aberto com preço e estoque real. Monta o carrinho, manda no WhatsApp e recebe em Terra Boa em 30 min a 1 hora. Entrega R$ 2.</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:36px;animation:bcFadeUp 1s cubic-bezier(0.2,0.7,0.2,1) 0.24s both">
+          <a href="#catalogo" style="background:oklch(0.70 0.12 95);color:#0B0A09;padding:19px 34px;font-weight:600;font-size:16px;letter-spacing:0.01em;transition:transform 0.25s ease, background 0.25s ease" style-hover="background:oklch(0.80 0.11 95);transform:translateY(-2px)">Ver catálogo e preços</a>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;color:rgba(237,232,224,0.55)">Entrega em 30 min a 1h<br>Pix, dinheiro ou cartão na entrega</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0;margin-top:44px;border-top:1px solid rgba(237,232,224,0.14);border-bottom:1px solid rgba(237,232,224,0.14);animation:bcFade 1.2s ease 0.5s both">
+          <div style="padding:16px 26px 16px 0;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:oklch(0.70 0.12 95)">11h – 23h</div>
+          <div style="padding:16px 26px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,232,224,0.6);border-left:1px solid rgba(237,232,224,0.14)">Entrega R$ 2</div>
+          <div style="padding:16px 26px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,232,224,0.6);border-left:1px solid rgba(237,232,224,0.14)">30 min a 1h</div>
+        </div>
+      </div>
+      <div data-m="hero-img" style="position:relative;animation:bcFade 1.4s ease 0.3s both">
+        <div style="position:absolute;left:50%;top:50%;width:78%;height:60%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,oklch(0.70 0.12 95 / 0.28),transparent);filter:blur(30px);animation:bcGlow 7s ease-in-out infinite"></div>
+        <div style="position:relative;animation:bcBottleIn 1.3s cubic-bezier(0.2,0.7,0.2,1) 0.25s both">
+          <div style="animation:bcFloat 6.5s ease-in-out 1.6s infinite">
+            <img src="img/home_image.png" alt="Jack Daniel's Single Barrel Select Tennessee Whiskey 700ml" style="display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:contain;filter:drop-shadow(0 40px 60px rgba(0,0,0,0.65))">
+          </div>
+          <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
+            <div style="position:absolute;top:-10%;left:0;width:26%;height:120%;background:linear-gradient(90deg,transparent,rgba(255,244,214,0.55),transparent);filter:blur(10px);animation:bcSheen 7s ease-in-out 2.2s infinite"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATÁLOGO -->
+  <section data-screen-label="Catálogo" id="catalogo" data-m="pad" style="max-width:1240px;margin:0 auto;padding:104px 24px 0">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px">
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.70 0.12 95)">Catálogo</div>
+        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(32px,4.2vw,56px);line-height:1.05;margin:16px 0 0">Preço e Estoque real</h2>
+      </div>
+      <div data-m="search" style="display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(237,232,224,0.24);padding:10px 2px;min-width:260px">
+        <span style="font-family:'DM Mono',monospace;font-size:12px;color:rgba(237,232,224,0.45)">buscar</span>
+        <input type="text" value="{{ query }}" onChange="{{ onQuery }}" placeholder="Jack, Absolut, gin…" style="flex:1;background:transparent;border:0;outline:none;color:#EDE8E0;font-family:'Work Sans',sans-serif;font-size:15px;padding:2px 0">
+      </div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:34px">
+      <sc-for list="{{ cats }}" as="c" hint-placeholder-count="5">
+        <button onClick="{{ c.select }}" class="{{ c.className }}">{{ c.label }}</button>
+      </sc-for>
+    </div>
+
+    <div data-m="cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;margin-top:26px">
+      <sc-for list="{{ list }}" as="p" hint-placeholder-count="8">
+        <div style="background:#0B0A09;padding:20px;display:flex;flex-direction:column;gap:14px;transition:background 0.3s ease, transform 0.3s ease" style-hover="background:#141110;transform:translateY(-3px)">
+          <div style="position:relative;aspect-ratio:3/4">
+            <img src="{{ p.img }}" alt="{{ p.name }}" style="display:block;width:100%;height:100%;object-fit:contain">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,232,224,0.42)">{{ p.cat }} · {{ p.size }}</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:20px;line-height:1.2">{{ p.name }}</div>
+          </div>
+          <div data-m="cardfoot" style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <div style="font-size:19px;font-weight:500;color:oklch(0.70 0.12 95)">{{ p.priceLabel }}</div>
+            <div data-m="cardqty" style="display:flex;align-items:center;gap:8px">
+              <sc-if value="{{ p.inCart }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <button onClick="{{ p.dec }}" style="cursor:pointer;width:32px;height:32px;border:1px solid rgba(237,232,224,0.26);background:transparent;color:#EDE8E0;font-size:16px;line-height:1">–</button>
+                  <span style="font-family:'DM Mono',monospace;font-size:14px;min-width:14px;text-align:center">{{ p.qty }}</span>
+                </div>
+              </sc-if>
+              <button onClick="{{ p.inc }}" style="cursor:pointer;width:32px;height:32px;border:0;background:oklch(0.70 0.12 95);color:#0B0A09;font-size:18px;line-height:1" style-hover="background:oklch(0.82 0.10 95)">+</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+      <p style="font-family:'DM Mono',monospace;font-size:13px;color:rgba(237,232,224,0.5);margin:28px 0 0">Nada com esse nome no estoque de agora. Pergunta no zap que a gente verifica.</p>
+    </sc-if>
+
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin-top:44px">
+      <a href="{{ waHref }}" target="_blank" rel="noopener" style="background:oklch(0.70 0.12 95);color:#0B0A09;padding:19px 34px;font-weight:600;font-size:16px" style-hover="background:oklch(0.80 0.11 95)">Montar meu pedido</a>
+      <div style="font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;color:rgba(237,232,224,0.55)">Sem pedido mínimo • Entrega R$ 2 em toda Terra Boa<br>Resposta imediata no WhatsApp</div>
+    </div>
+  </section>
+
+  <!-- PROVA SOCIAL CURTA -->
+  <section data-screen-label="Prova social" data-m="pad" style="max-width:1240px;margin:0 auto;padding:96px 24px 0">
+    <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(237,232,224,0.14);border:1px solid rgba(237,232,224,0.14)">
+      <div style="background:#0B0A09;padding:30px 26px">
+        <div style="font-family:'DM Serif Display',serif;font-size:40px;line-height:1;color:oklch(0.70 0.12 95)">2 anos</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,232,224,0.5);margin-top:10px">entregando em Terra Boa</div>
+      </div>
+      <div style="background:#0B0A09;padding:30px 26px">
+        <div style="font-family:'DM Serif Display',serif;font-size:40px;line-height:1;color:oklch(0.70 0.12 95)">+100</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,232,224,0.5);margin-top:10px">pedidos por mês</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARCAS -->
+  <section data-screen-label="Marcas" style="margin-top:96px;border-top:1px solid rgba(237,232,224,0.12);border-bottom:1px solid rgba(237,232,224,0.12);padding:26px 0;overflow:hidden">
+    <div style="display:flex;width:max-content;animation:bcMarquee 34s linear infinite">
+      <div style="display:flex;gap:64px;padding-right:64px;font-family:'DM Serif Display',serif;font-size:26px;color:rgba(237,232,224,0.34);white-space:nowrap">
+        <span>Jack Daniel’s</span><span>Absolut</span><span>Licor 43</span><span>Ballena</span><span>Tanqueray</span><span>Jägermeister</span><span>Red Label</span><span>Jose Cuervo</span>
+      </div>
+      <div style="display:flex;gap:64px;padding-right:64px;font-family:'DM Serif Display',serif;font-size:26px;color:rgba(237,232,224,0.34);white-space:nowrap">
+        <span>Jack Daniel’s</span><span>Absolut</span><span>Licor 43</span><span>Ballena</span><span>Tanqueray</span><span>Jägermeister</span><span>Red Label</span><span>Jose Cuervo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABERTURA / DOR -->
+  <section data-screen-label="Dor" data-m="pad" style="max-width:1240px;margin:0 auto;padding:120px 24px 0">
+    <div data-reveal="1" data-m="stack" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px">
+      <div>
+        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(30px,3.4vw,46px);line-height:1.08;margin:0;max-width:22ch">Você já sabe qual garrafa quer. O problema nunca foi escolher.</h2>
+        <p style="font-size:17px;line-height:1.7;color:rgba(237,232,224,0.7);margin:26px 0 0;max-width:48ch">O problema é mandar mensagem, esperar resposta, perguntar o preço, descobrir que acabou — e o churrasco já começou sem a bebida.</p>
+        <p style="font-size:17px;line-height:1.7;color:rgba(237,232,224,0.7);margin:18px 0 0;max-width:48ch">Aqui não tem essa etapa. O catálogo tá aberto: você vê a garrafa, vê o preço, vê o que tem em estoque agora. Monta o carrinho e a mensagem sai pronta no WhatsApp.</p>
+        <p style="font-family:'DM Mono',monospace;font-size:13px;line-height:1.7;color:oklch(0.70 0.12 95);margin:26px 0 0">Aberto das 11h às 23h, domingo a domingo. Toda Terra Boa.</p>
+      </div>
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,232,224,0.45);padding-bottom:22px;border-bottom:1px solid rgba(237,232,224,0.14)">O roteiro de sempre</div>
+        <div style="display:flex;flex-direction:column">
+          <div style="display:flex;gap:18px;padding:18px 0;border-bottom:1px solid rgba(237,232,224,0.09)"><span style="font-family:'DM Mono',monospace;font-size:12px;color:oklch(0.70 0.12 95);padding-top:3px">01</span><span style="font-size:16px;line-height:1.55;color:rgba(237,232,224,0.78)">Você manda “boa noite, tem Licor 43?” e fica olhando as duas listras azuis</span></div>
+          <div style="display:flex;gap:18px;padding:18px 0;border-bottom:1px solid rgba(237,232,224,0.09)"><span style="font-family:'DM Mono',monospace;font-size:12px;color:oklch(0.70 0.12 95);padding-top:3px">02</span><span style="font-size:16px;line-height:1.55;color:rgba(237,232,224,0.78)">Vem o “tem sim” — mas o preço só chega três mensagens depois</span></div>
+          <div style="display:flex;gap:18px;padding:18px 0;border-bottom:1px solid rgba(237,232,224,0.09)"><span style="font-family:'DM Mono',monospace;font-size:12px;color:oklch(0.70 0.12 95);padding-top:3px">03</span><span style="font-size:16px;line-height:1.55;color:rgba(237,232,224,0.78)">Descobre que o que você queria acabou justo hoje</span></div>
+          <div style="display:flex;gap:18px;padding:18px 0;border-bottom:1px solid rgba(237,232,224,0.09)"><span style="font-family:'DM Mono',monospace;font-size:12px;color:oklch(0.70 0.12 95);padding-top:3px">04</span><span style="font-size:16px;line-height:1.55;color:rgba(237,232,224,0.78)">Sai de casa às 22h achando que dá tempo, e não dá</span></div>
+          <div style="display:flex;gap:18px;padding:18px 0;border-bottom:1px solid rgba(237,232,224,0.09)"><span style="font-family:'DM Mono',monospace;font-size:12px;color:oklch(0.70 0.12 95);padding-top:3px">05</span><span style="font-size:16px;line-height:1.55;color:rgba(237,232,224,0.78)">Paga combustível e perde 40 minutos pra buscar uma garrafa</span></div>
+          <div style="display:flex;gap:18px;padding:18px 0"><span style="font-family:'DM Mono',monospace;font-size:12px;color:oklch(0.70 0.12 95);padding-top:3px">06</span><span style="font-size:16px;line-height:1.55;color:rgba(237,232,224,0.78)">Ou desiste, pega o que sobrou no mercado e a noite muda de nível</span></div>
+        </div>
+        <p style="font-family:'DM Serif Display',serif;font-size:24px;line-height:1.35;margin:30px 0 0">Ninguém quer pesquisar bebida. Quer receber a bebida.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUÇÃO -->
+  <section data-screen-label="Solução" style="margin-top:120px;background:#100E0C;border-top:1px solid rgba(237,232,224,0.1);border-bottom:1px solid rgba(237,232,224,0.1)">
+    <div data-m="pad" style="max-width:1240px;margin:0 auto;padding:96px 24px">
+      <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.70 0.12 95)">O mecanismo</div>
+      <h2 data-reveal="1" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(32px,4.4vw,60px);line-height:1.05;margin:18px 0 0;max-width:18ch">Pedido Sem Pergunta</h2>
+      <p style="font-size:17px;line-height:1.7;color:rgba(237,232,224,0.7);margin:22px 0 0;max-width:60ch">Por isso o site funciona como cardápio, não como conversa. Tudo o que você normalmente teria que perguntar no zap já está respondido antes de você digitar.</p>
+      <div data-reveal="1" data-reveal-stagger="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:rgba(237,232,224,0.14);border:1px solid rgba(237,232,224,0.14);margin-top:52px">
+        <div style="background:#100E0C;padding:36px 30px">
+          <div style="width:34px;height:34px;border:1px solid oklch(0.70 0.12 95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:13px;color:oklch(0.70 0.12 95)">1</div>
+          <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:26px;margin:22px 0 10px">Preço na tela</h3>
+          <p style="font-size:15px;line-height:1.65;color:rgba(237,232,224,0.65);margin:0">Cada garrafa com o valor visível. Você compara antes de decidir, sem constrangimento de perguntar.</p>
+        </div>
+        <div style="background:#100E0C;padding:36px 30px">
+          <div style="width:34px;height:34px;border:1px solid oklch(0.70 0.12 95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:13px;color:oklch(0.70 0.12 95)">2</div>
+          <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:26px;margin:22px 0 10px">Estoque real</h3>
+          <p style="font-size:15px;line-height:1.65;color:rgba(237,232,224,0.65);margin:0">Se está no catálogo, está na prateleira. Nada de fechar pedido e ouvir “acabou”.</p>
+        </div>
+        <div style="background:#100E0C;padding:36px 30px">
+          <div style="width:34px;height:34px;border:1px solid oklch(0.70 0.12 95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:13px;color:oklch(0.70 0.12 95)">3</div>
+          <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:26px;margin:22px 0 10px">Foto antes de sair</h3>
+          <p style="font-size:15px;line-height:1.65;color:rgba(237,232,224,0.65);margin:0">Antes da entrega sair, você recebe a foto da sua garrafa no WhatsApp. Lacre, rótulo, safra — você confere e libera.</p>
+        </div>
+      </div>
+      <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.6);margin:36px 0 0;max-width:60ch">O resto é simples: toca no <span style="color:oklch(0.70 0.12 95)">+</span>, monta o carrinho, aperta enviar. A mensagem chega pronta pra gente com os itens, a quantidade e o total.</p>
+    </div>
+  </section>
+
+  <!-- BENEFÍCIOS -->
+  <section data-screen-label="Benefícios" data-m="pad" style="max-width:1240px;margin:0 auto;padding:110px 24px 0">
+    <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(30px,3.4vw,46px);line-height:1.08;margin:0 0 48px;max-width:24ch">O que muda quando o catálogo está aberto</h2>
+    <div data-reveal="1" data-reveal-stagger="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px 48px">
+      <div style="padding:22px 0;border-top:1px solid rgba(237,232,224,0.14)"><div style="font-size:18px;font-weight:500;margin-bottom:8px">Você decide sozinho, no seu tempo</div><p style="margin:0;font-size:15px;line-height:1.6;color:rgba(237,232,224,0.6)">Olha o catálogo inteiro sem ninguém te apressando do outro lado.</p></div>
+      <div style="padding:22px 0;border-top:1px solid rgba(237,232,224,0.14)"><div style="font-size:18px;font-weight:500;margin-bottom:8px">Zero surpresa no preço</div><p style="margin:0;font-size:15px;line-height:1.6;color:rgba(237,232,224,0.6)">O total aparece antes de você mandar, não depois.</p></div>
+      <div style="padding:22px 0;border-top:1px solid rgba(237,232,224,0.14)"><div style="font-size:18px;font-weight:500;margin-bottom:8px">Confere a garrafa antes dela sair</div><p style="margin:0;font-size:15px;line-height:1.6;color:rgba(237,232,224,0.6)">A foto chega no seu zap; se não for a que você quer, não sai.</p></div>
+      <div style="padding:22px 0;border-top:1px solid rgba(237,232,224,0.14)"><div style="font-size:18px;font-weight:500;margin-bottom:8px">A festa não para</div><p style="margin:0;font-size:15px;line-height:1.6;color:rgba(237,232,224,0.6)">Acabou a bebida às 22h30? Pede e continua, sem ninguém precisar sair de casa.</p></div>
+      <div style="padding:22px 0;border-top:1px solid rgba(237,232,224,0.14)"><div style="font-size:18px;font-weight:500;margin-bottom:8px">Sua garrafa chega inteira e conservada</div><p style="margin:0;font-size:15px;line-height:1.6;color:rgba(237,232,224,0.6)">Destilado guardado longe do sol e do calor, do jeito que preserva o sabor.</p></div>
+      <div style="padding:22px 0;border-top:1px solid rgba(237,232,224,0.14)"><div style="font-size:18px;font-weight:500;margin-bottom:8px">Compra pequena vale a pena</div><p style="margin:0;font-size:15px;line-height:1.6;color:rgba(237,232,224,0.6)">Sem pedido mínimo, dá pra pedir uma garrafa só.</p></div>
+      <div style="padding:22px 0;border-top:1px solid rgba(237,232,224,0.14)"><div style="font-size:18px;font-weight:500;margin-bottom:8px">Paga do jeito que sobrou</div><p style="margin:0;font-size:15px;line-height:1.6;color:rgba(237,232,224,0.6)">Pix na hora, dinheiro ou cartão na entrega.</p></div>
+      <div style="padding:22px 0;border-top:1px solid rgba(237,232,224,0.14)"><div style="font-size:18px;font-weight:500;margin-bottom:8px">R$ 2 no lugar de sair de casa</div><p style="margin:0;font-size:15px;line-height:1.6;color:rgba(237,232,224,0.6)">Mais barato que o combustível da ida e volta.</p></div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section data-screen-label="Depoimentos" data-m="pad" style="max-width:1240px;margin:0 auto;padding:120px 24px 0">
+    
+    <div data-reveal="1" data-reveal-stagger="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1px;background:rgba(237,232,224,0.12);border:1px solid rgba(237,232,224,0.12)">
+      
+      
+      
+    </div>
+  </section>
+
+  <!-- OFERTA -->
+  <section data-screen-label="Oferta" style="margin-top:120px;background:#100E0C;border-top:1px solid rgba(237,232,224,0.1);border-bottom:1px solid rgba(237,232,224,0.1)">
+    <div data-m="pad" style="max-width:1240px;margin:0 auto;padding:96px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px">
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.70 0.12 95)">Como funciona</div>
+        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(30px,3.6vw,48px);line-height:1.06;margin:18px 0 30px">O que você recebe</h2>
+        <div style="display:flex;flex-direction:column">
+          <div style="padding:16px 0;border-top:1px solid rgba(237,232,224,0.14);font-size:16px;color:rgba(237,232,224,0.8)">Garrafa lacrada, original e conservada</div>
+          <div style="padding:16px 0;border-top:1px solid rgba(237,232,224,0.14);font-size:16px;color:rgba(237,232,224,0.8)">Foto do seu pedido antes de sair pra entrega</div>
+          <div style="padding:16px 0;border-top:1px solid rgba(237,232,224,0.14);border-bottom:1px solid rgba(237,232,224,0.14);font-size:16px;color:rgba(237,232,224,0.8)">Entrega em toda Terra Boa</div>
+        </div>
+        <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:26px;margin:40px 0 8px">A conta que ninguém faz</h3>
+        <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.68);margin:0">Ir buscar custa combustível, 40 minutos do seu tempo e o risco de a loja já ter fechado. Aqui custa R$ 2 e você não levanta do sofá.</p>
+        <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.68);margin:14px 0 0">E se a bebida acabar às 22h com a casa cheia, não existe alternativa. Existe a gente, até as 23h.</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:32px">
+          <a href="#catalogo" style="background:oklch(0.70 0.12 95);color:#0B0A09;padding:18px 32px;font-weight:600;font-size:16px" style-hover="background:oklch(0.80 0.11 95)">Ver catálogo agora</a>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;color:rgba(237,232,224,0.55)">Preço e estoque atualizados<br>Resposta imediata no WhatsApp</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(237,232,224,0.45);padding-bottom:20px">Condições</div>
+        <div style="display:flex;flex-direction:column">
+          <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:16px;padding:18px 0;border-top:1px solid rgba(237,232,224,0.14)"><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,232,224,0.5)">Entrega</span><span style="font-size:16px;color:rgba(237,232,224,0.85)">R$ 2,00 — cidade inteira, sem diferença por bairro</span></div>
+          <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:16px;padding:18px 0;border-top:1px solid rgba(237,232,224,0.14)"><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,232,224,0.5)">Pedido mínimo</span><span style="font-size:16px;color:rgba(237,232,224,0.85)">Não tem. Uma garrafa já vale</span></div>
+          <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:16px;padding:18px 0;border-top:1px solid rgba(237,232,224,0.14)"><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,232,224,0.5)">Prazo</span><span style="font-size:16px;color:rgba(237,232,224,0.85)">30 minutos a 1 hora</span></div>
+          <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:16px;padding:18px 0;border-top:1px solid rgba(237,232,224,0.14)"><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,232,224,0.5)">Horário</span><span style="font-size:16px;color:rgba(237,232,224,0.85)">11h às 23h, domingo a domingo</span></div>
+          <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:16px;padding:18px 0;border-top:1px solid rgba(237,232,224,0.14);border-bottom:1px solid rgba(237,232,224,0.14)"><span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,232,224,0.5)">Pagamento</span><span style="font-size:16px;color:rgba(237,232,224,0.85)">Pix, Dinheiro ou Cartão (Credito ou Debito) na entrega&nbsp;</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJEÇÕES -->
+  <section data-screen-label="Objeções" data-m="pad" style="max-width:1240px;margin:0 auto;padding:110px 24px 0">
+    <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(28px,3.2vw,42px);margin:0 0 44px">Antes que você pergunte</h2>
+    <div data-m="stack" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:44px">
+      <div>
+        <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:24px;margin:0 0 10px">“Quais as formas de pagamento?”</h3>
+        <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.68);margin:0 0 34px">Pix, dinheiro ou cartão na entrega. O Pix você manda quando o pedido é confirmado; dinheiro e cartão você acerta com o entregador na porta. Se precisar de troco, é só avisar na mensagem.</p>
+        <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:24px;margin:0 0 10px">“Quanto tempo demora?”</h3>
+        <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.68);margin:0 0 34px">Entre 30 minutos e 1 hora. Terra Boa é do tamanho que é — a distância não é o problema. Nos horários de pico da sexta e do sábado à noite, some uns minutos. Se apertar, pede com antecedência: dá pra combinar o horário de entrega no zap.</p>
+        <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:24px;margin:0 0 10px">“Aceita cartão de crédito Avista?”</h3>
+        <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.68);margin:0">&nbsp;Sim, na entrega, na maquininha. Crédito e Débito.</p>
+      </div>
+      <div>
+        <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:24px;margin:0 0 10px">“É mais caro que o mercado?”</h3>
+        <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.68);margin:0 0 14px">Cada garrafa está com o preço na tela justamente pra você comparar antes de pedir, sem precisar perguntar.</p>
+        <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.68);margin:0 0 14px">O que a comparação costuma esquecer: no mercado você paga o combustível, gasta o tempo e depende do horário de funcionamento. Aqui a diferença é R$ 2 de entrega e a garrafa chega na sua porta em até 1 hora, até as 23h.</p>
+        <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.68);margin:0">E tem o outro lado: destilado mal armazenado, exposto no sol da vitrine, custa caro de outro jeito. O nosso fica conservado.</p>
+        <div style="margin-top:44px;border:1px solid rgba(237,232,224,0.16);padding:34px 30px">
+          <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.70 0.12 95)">Garantia</div>
+          <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:30px;line-height:1.15;margin:16px 0 14px">Você confere antes, não depois.</h3>
+          <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.7);margin:0 0 14px">Toda garrafa é fotografada antes de sair pra entrega e a foto vai pro seu WhatsApp. Rótulo, lacre e quantidade — você aprova e só então o entregador sai.</p>
+          <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.7);margin:0 0 14px">Se chegar algo diferente do que você aprovou, devolvemos seu Dinheiro</p>
+          <p style="font-family:'DM Serif Display',serif;font-size:20px;line-height:1.4;margin:0">Produto original, lacrado, direto de distribuidor. Sem “parece igual”.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- URGÊNCIA -->
+  <section data-screen-label="Urgência" data-m="pad" style="max-width:1240px;margin:0 auto;padding:110px 24px 0">
+    <div style="border-top:1px solid rgba(237,232,224,0.14);border-bottom:1px solid rgba(237,232,224,0.14);padding:64px 0;text-align:center">
+      <h2 data-reveal="1" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(38px,6vw,84px);line-height:1;margin:0">Fechamos às 23h.</h2>
+      <p style="font-size:17px;line-height:1.7;color:rgba(237,232,224,0.68);max-width:52ch;margin:24px auto 0">Depois disso, não tem plano B em Terra Boa. Se a noite promete passar da meia-noite, o pedido precisa entrar antes.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section data-screen-label="FAQ" data-m="pad" style="max-width:900px;margin:0 auto;padding:110px 24px 0">
+    <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(28px,3.2vw,42px);margin:0 0 36px">Perguntas frequentes</h2>
+    <sc-for list="{{ faq }}" as="f" hint-placeholder-count="6">
+      <div style="border-top:1px solid rgba(237,232,224,0.14)">
+        <button onClick="{{ f.toggle }}" style="cursor:pointer;width:100%;background:transparent;border:0;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;text-align:left;color:#EDE8E0;font-family:'Work Sans',sans-serif;font-size:18px;font-weight:400">
+          <span>{{ f.q }}</span>
+          <span style="font-family:'DM Mono',monospace;font-size:18px;color:oklch(0.70 0.12 95);flex:none">{{ f.icon }}</span>
+        </button>
+        <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:16px;line-height:1.7;color:rgba(237,232,224,0.68);margin:0;padding:0 0 26px;max-width:62ch;animation:bcFadeUp 0.4s ease both">{{ f.a }}</p>
+        </sc-if>
+      </div>
+    </sc-for>
+    <div style="border-top:1px solid rgba(237,232,224,0.14)"></div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section data-screen-label="CTA final" data-m="pad" style="max-width:1240px;margin:0 auto;padding:120px 24px 0">
+    <div data-m="stack" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center">
+      <div data-reveal="1">
+        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(32px,4.2vw,58px);line-height:1.04;margin:0;max-width:22ch">Sexta à noite, a casa cheia, e a garrafa certa na mesa.</h2>
+        <p style="font-size:17px;line-height:1.7;color:rgba(237,232,224,0.7);margin:26px 0 0;max-width:48ch">Não é sobre bebida. É sobre não ter que sair no meio de tudo pra resolver o que dava pra ter resolvido em dois toques.</p>
+        <p style="font-family:'DM Serif Display',serif;font-size:24px;line-height:1.4;margin:22px 0 0">Escolhe no catálogo. Manda no zap. Continua a noite.</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:36px">
+          <a href="#catalogo" style="background:oklch(0.70 0.12 95);color:#0B0A09;padding:19px 34px;font-weight:600;font-size:16px" style-hover="background:oklch(0.80 0.11 95)">Montar meu pedido agora</a>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;color:rgba(237,232,224,0.55)">Aberto até 23h • Entrega R$ 2<br>30 min a 1 hora</div>
+        </div>
+      </div>
+      <div data-m="noborder" style="border-left:1px solid rgba(237,232,224,0.14);padding-left:34px">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:oklch(0.70 0.12 95)">PS</div>
+        <p style="font-size:17px;line-height:1.7;color:rgba(237,232,224,0.75);margin:18px 0 0">O catálogo mostra preço e estoque real. Se a garrafa está lá, ela está aqui, lacrada e conservada — e você vê a foto dela antes de sair pra entrega.</p>
+        <p style="font-size:17px;line-height:1.7;color:rgba(237,232,224,0.75);margin:14px 0 24px">Só que fechamos às 23h. Depois disso, em Terra Boa, ninguém entrega.</p>
+        <a href="#catalogo" style="display:inline-block;border:1px solid oklch(0.70 0.12 95);color:oklch(0.70 0.12 95);padding:15px 26px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase" style-hover="background:oklch(0.70 0.12 95);color:#0B0A09">Ver catálogo e preços</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer style="margin-top:110px;border-top:1px solid rgba(237,232,224,0.14)">
+    <div style="max-width:1240px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px">
+      <div>
+        <div style="font-family:'DM Serif Display',serif;font-size:22px">Borcelle</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,232,224,0.45);margin-top:10px">Destilados · Terra Boa/PR<br>11h às 23h, domingo a domingo</div>
+      </div>
+      <div style="font-size:13px;line-height:1.8;color:rgba(237,232,224,0.5)">Venda proibida para menores de 18 anos.<br>Beba com moderação. Se beber, não dirija.</div>
+      <div style="font-family:'DM Mono',monospace;font-size:11px;line-height:1.9;color:rgba(237,232,224,0.4)">Marcas exibidas como produto à venda.<br>Sem vínculo, patrocínio ou parceria oficial.<br><a href="#catalogo">Política de Privacidade</a></div>
+    </div>
+  </footer>
+
+  <!-- CARRINHO FLUTUANTE -->
+  <div style="position:fixed;left:0;right:0;bottom:0;z-index:90;animation:bcBarUp 0.7s cubic-bezier(0.2,0.7,0.2,1) 0.6s both;background:rgba(11,10,9,0.94);border-top:1px solid rgba(237,232,224,0.16);backdrop-filter:blur(10px)">
+    <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1240px;margin:0 auto;padding:22px 24px 4px;max-height:46vh;overflow-y:auto">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,232,224,0.45);padding-bottom:12px">Seu pedido</div>
+        <sc-for list="{{ cartItems }}" as="i" hint-placeholder-count="2">
+          <div data-m="cartrow" style="display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;align-items:center;gap:18px;padding:14px 0;border-top:1px solid rgba(237,232,224,0.12)">
+            <div style="min-width:0">
+              <div style="font-family:'DM Serif Display',serif;font-size:19px;line-height:1.25">{{ i.name }}</div>
+              <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(237,232,224,0.42);margin-top:4px">{{ i.size }} · {{ i.unitLabel }}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <button onClick="{{ i.dec }}" style="cursor:pointer;width:30px;height:30px;border:1px solid rgba(237,232,224,0.26);background:transparent;color:#EDE8E0;font-size:16px;line-height:1">–</button>
+              <span style="font-family:'DM Mono',monospace;font-size:14px;min-width:14px;text-align:center">{{ i.qty }}</span>
+              <button onClick="{{ i.inc }}" style="cursor:pointer;width:30px;height:30px;border:0;background:oklch(0.70 0.12 95);color:#0B0A09;font-size:17px;line-height:1">+</button>
+            </div>
+            <div style="font-size:16px;font-weight:500;min-width:88px;text-align:right">{{ i.lineLabel }}</div>
+            <button onClick="{{ i.remove }}" style="cursor:pointer;background:transparent;border:0;color:rgba(237,232,224,0.4);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase" style-hover="color:#EDE8E0">remover</button>
+          </div>
+        </sc-for>
+        <div style="display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid rgba(237,232,224,0.12);font-size:14px;color:rgba(237,232,224,0.6)">
+          <span>Subtotal</span><span>{{ subtotalLabel }}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:16px;padding:0 0 14px;font-size:14px;color:rgba(237,232,224,0.6)">
+          <span>Entrega</span><span>R$ 2,00</span>
+        </div>
+      </div>
+    </sc-if>
+    <div data-m="bar" style="max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid rgba(237,232,224,0.1)">
+      <div style="display:flex;align-items:baseline;gap:14px;min-width:0">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(237,232,224,0.5)">Carrinho</span>
+        <span style="font-size:15px;color:rgba(237,232,224,0.85);white-space:nowrap">{{ countLabel }}</span>
+        <span style="font-size:19px;font-weight:500;color:oklch(0.70 0.12 95);white-space:nowrap">{{ totalLabel }}</span>
+        <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ toggleCart }}" style="cursor:pointer;background:transparent;border:0;padding:0;color:rgba(237,232,224,0.6);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px" style-hover="color:#EDE8E0">{{ cartIcon }}</button>
+        </sc-if>
+      </div>
+      <a href="{{ waHref }}" target="_blank" rel="noopener" style="flex:none;background:oklch(0.70 0.12 95);color:#0B0A09;padding:15px 26px;font-weight:600;font-size:15px;transition:transform 0.25s ease, background 0.25s ease" style-hover="background:oklch(0.80 0.11 95);transform:translateY(-2px)">Enviar no WhatsApp</a>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { gate: true, query: "", cat: "Tudo", cart: {}, open: {}, cartOpen: false };
+  }
+  componentDidMount() {
+    try { if (localStorage.getItem("borcelle_age_ok") === "1") this.setState({ gate: false }); } catch (e) {}
+    this.onScroll = () => {
+      const el = this._progress;
+      if (el) {
+        const d = document.documentElement;
+        const max = (d.scrollHeight - d.clientHeight) || 1;
+        el.style.width = Math.min(100, (window.scrollY / max) * 100) + "%";
+      }
+      if (this._reveal) {
+        document.querySelectorAll("[data-reveal]").forEach(n => {
+          if (n.getBoundingClientRect().top < window.innerHeight) this._reveal(n);
+        });
+      }
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    this.onScroll();
+
+    if (typeof IntersectionObserver === "function") {
+      const reveal = t => {
+        const kids = t.getAttribute("data-reveal-stagger") ? Array.from(t.children) : [t];
+        kids.forEach((k, i) => {
+          k.style.animation = "bcFadeUp 0.85s cubic-bezier(0.2,0.7,0.2,1) " + (i * 0.09) + "s both";
+        });
+        io.unobserve(t);
+        t.removeAttribute("data-reveal");
+      };
+      this._reveal = reveal;
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting || e.boundingClientRect.top < 0) reveal(e.target);
+        });
+      }, { rootMargin: "0px 0px -12% 0px", threshold: 0.08 });
+      this._io = io;
+      setTimeout(() => {
+        document.querySelectorAll("[data-reveal]").forEach(el => {
+          const stagger = el.getAttribute("data-reveal-stagger");
+          if (el.getBoundingClientRect().top < window.innerHeight) { reveal(el); return; }
+          (stagger ? Array.from(el.children) : [el]).forEach(k => { k.style.opacity = "0"; });
+          io.observe(el);
+        });
+      }, 60);
+      this._safety = setTimeout(this.onScroll, 1200);
+    }
+  }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.onScroll);
+    if (this._io) this._io.disconnect();
+  }
+  products() {
+    return [
+      { id: "jd7", name: "Jack Daniel's Old No.7", short: "Jack Daniel's", cat: "Whisky", size: "1L", price: 169.9, img: "img/jack_daniels_old_no_7.webp" },
+      { id: "jdf", name: "Jack Daniel's Fire", short: "JD Fire", cat: "Whisky", size: "1L", price: 179.9, img: "img/jack_daniels_fire.jpg" },
+      { id: "jdh", name: "Jack Daniel's Honey", short: "JD Honey", cat: "Whisky", size: "1L", price: 179.9, img: "img/jack_daniels_honey.webp" },
+      { id: "rl", name: "Johnnie Walker Red Label", short: "Red Label", cat: "Whisky", size: "1L", price: 119.9, img: "img/johnnie_walker_red_label.webp" },
+      { id: "wh", name: "White Horse", short: "White Horse", cat: "Whisky", size: "1L", price: 89.9, img: "img/white_horse.webp" },
+      { id: "abs", name: "Absolut Original", short: "Absolut", cat: "Vodka", size: "1L", price: 89.9, img: "img/absolute_original.avif" },
+      { id: "absv", name: "Absolut Vanilia", short: "Absolut Vanilia", cat: "Vodka", size: "750ml", price: 94.9, img: "img/absolute_vanila.webp" },
+      { id: "smi", name: "Absolute Wild Berri", short: "Smirnoff", cat: "Vodka", size: "998ml", price: 39.9, img: "img/absolute_wild_berri.jpg" },
+      { id: "l43", name: "Licor 43", short: "Licor 43", cat: "Licor", size: "700ml", price: 159.9, img: "img/licor_43.webp" },
+      { id: "jag", name: "Jägermeister", short: "Jägermeister", cat: "Licor", size: "700ml", price: 139.9, img: "img/jagermeister.webp" },
+      { id: "bal", name: "Gin Ballena", short: "Ballena", cat: "Gin", size: "750ml", price: 79.9, img: "img/gin_balena.jpg" },
+      { id: "tan", name: "Gin Tanqueray London Dry", short: "Tanqueray", cat: "Gin", size: "750ml", price: 129.9, img: "img/tanqueray.webp" },
+      { id: "bfe", name: "Gin Beefeater", short: "Beefeater", cat: "Gin", size: "750ml", price: 109.9, img: "img/beefeater.webp" },
+      { id: "jos", name: "Tequila Jose Cuervo Ouro", short: "Jose Cuervo", cat: "Tequila", size: "750ml", price: 149.9, img: "img/jose_cuervo.webp" },
+      { id: "sag", name: "Cachaça Sagatiba Pura", short: "Sagatiba", cat: "Cachaça", size: "700ml", price: 44.9, img: "img/sagatiba.webp" },
+      { id: "yp", name: "Cachaça Ypióca Ouro", short: "Ypióca", cat: "Cachaça", size: "965ml", price: 34.9, img: "img/ypioca_ouro.webp" }
+    ];
+  }
+  money(v) {
+    return "R$ " + v.toFixed(2).replace(".", ",");
+  }
+  faqData() {
+    return [
+      { q: "Entregam no meu bairro?", a: "Entregamos em toda Terra Boa, R$ 2,00 em qualquer endereço da cidade." },
+      { q: "Qual o horário?", a: "Das 11h às 23h, todos os dias, inclusive domingo e feriado." },
+      { q: "Quanto tempo até chegar?", a: "De 30 minutos a 1 hora. Sexta e sábado à noite pode alongar um pouco pelo volume." },
+      { q: "Tem pedido mínimo?", a: "Não. Pode pedir uma garrafa só." },
+      { q: "Como funciona o pedido?", a: "Você escolhe no catálogo, adiciona ao carrinho e toca em enviar. A mensagem chega pronta no nosso WhatsApp com os itens e o total. A gente confirma e sai pra entrega." },
+      { q: "Preciso pagar antes?", a: "Não. Pix na confirmação ou pagamento na entrega, em dinheiro ou cartão." },
+      { q: "O produto é original?", a: "Sim. Garrafa lacrada, comprada de distribuidor, armazenada longe de calor e sol. Você recebe a foto do seu pedido antes de ele sair." },
+      { q: "Posso retirar no local?", a: "Sim. Informamos o Endereço no Whatsapp." },
+      { q: "E se eu não estiver em casa na hora?", a: "É só combinar o horário na mensagem. Dá pra agendar a entrega pra mais tarde dentro do nosso funcionamento." }
+    ];
+  }
+  bump(id, d) {
+    this.setState(s => {
+      const cart = Object.assign({}, s.cart);
+      const n = (cart[id] || 0) + d;
+      if (n > 0) cart[id] = n; else delete cart[id];
+      return { cart };
+    });
+  }
+  renderVals() {
+    const all = this.products();
+    const q = this.state.query.trim().toLowerCase();
+    const cat = this.state.cat;
+    const list = all
+      .filter(p => (cat === "Tudo" || p.cat === cat) && (!q || (p.name + " " + p.cat).toLowerCase().includes(q)))
+      .map(p => ({
+        name: p.name, short: p.short, cat: p.cat, size: p.size,
+        priceLabel: this.money(p.price),
+        img: p.img,
+        qty: this.state.cart[p.id] || 0,
+        inCart: !!this.state.cart[p.id],
+        inc: () => this.bump(p.id, 1),
+        dec: () => this.bump(p.id, -1)
+      }));
+
+    const catNames = ["Tudo", "Whisky", "Vodka", "Gin", "Licor", "Tequila", "Cachaça"];
+    const cats = catNames.map(name => {
+      const on = name === cat;
+      return {
+        label: name,
+        className: "cat-chip" + (on ? " is-active" : ""),
+        select: () => this.setState({ cat: name })
+      };
+    });
+
+    const ids = Object.keys(this.state.cart);
+    const items = all.filter(p => this.state.cart[p.id]);
+    const count = ids.reduce((a, k) => a + this.state.cart[k], 0);
+    const subtotal = items.reduce((a, p) => a + p.price * this.state.cart[p.id], 0);
+    const total = count ? subtotal + 2 : 0;
+    const lines = items.map(p => this.state.cart[p.id] + "x " + p.name + " " + p.size + " — " + this.money(p.price * this.state.cart[p.id]));
+    const msg = count
+      ? "Olá! Quero fazer um pedido:\n" + lines.join("\n") + "\nEntrega: R$ 2,00\nTotal: " + this.money(total) + "\n\nNome: \nBairro: \nEndereço: \nForma de pagamento: "
+      : "Olá! Quero fazer um pedido pelo catálogo.\n\nNome: \nBairro: \nEndereço: \nForma de pagamento: ";
+    const wa = "https://wa.me/55XXXXXXXXXXX?text=" + encodeURIComponent(msg) + "&utm_source=instagram&utm_medium=bio&utm_campaign=catalogo";
+
+    return {
+      progressRef: el => { this._progress = el; if (el && this.onScroll) this.onScroll(); },
+      showGate: this.state.gate,
+      acceptAge: () => { try { localStorage.setItem("borcelle_age_ok", "1"); } catch (e) {} this.setState({ gate: false }); },
+      denyAge: () => { window.location.href = "https://www.google.com"; },
+      query: this.state.query,
+      onQuery: e => this.setState({ query: e.target.value }),
+      cats, list,
+      empty: list.length === 0,
+      countLabel: count === 0 ? "vazio" : count === 1 ? "1 item" : count + " itens",
+      hasItems: count > 0,
+      cartOpen: this.state.cartOpen && count > 0,
+      toggleCart: () => this.setState(s => ({ cartOpen: !s.cartOpen })),
+      cartIcon: this.state.cartOpen && count > 0 ? "fechar ×" : "ver itens",
+      subtotalLabel: this.money(subtotal),
+      cartItems: items.map(p => ({
+        name: p.name, size: p.size,
+        qty: this.state.cart[p.id],
+        lineLabel: this.money(p.price * this.state.cart[p.id]),
+        unitLabel: this.money(p.price) + " un.",
+        inc: () => this.bump(p.id, 1),
+        dec: () => this.bump(p.id, -1),
+        remove: () => this.bump(p.id, -this.state.cart[p.id])
+      })),
+      totalLabel: count ? this.money(total) : this.money(0),
+      waHref: wa,
+      faq: this.faqData().map((f, i) => ({
+        q: f.q, a: f.a,
+        open: !!this.state.open[i],
+        icon: this.state.open[i] ? "−" : "+",
+        toggle: () => this.setState(s => {
+          const open = Object.assign({}, s.open);
+          open[i] = !open[i];
+          return { open };
+        })
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

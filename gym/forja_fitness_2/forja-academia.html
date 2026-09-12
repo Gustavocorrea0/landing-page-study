@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FORJA — Centro de Treinamento | Sua primeira aula é por nossa conta</title>
+  <meta name="description" content="Academia com musculação, treino funcional, luta e yoga. Estrutura completa, professores presentes e plano sem fidelidade. Agende sua aula experimental gratuita.">
+
+  <!-- ==========================================================
+       TIPOGRAFIA — Google Fonts
+       Oswald: condensada e pesada, usada nos títulos (H1/H2).
+       Poppins: geométrica e legível, usada em textos e botões.
+       ========================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================
+       1. DESIGN TOKENS
+       Todas as cores, fontes e espaçamentos ficam centralizados
+       aqui. Para trocar o tema da marca, edite apenas este bloco.
+       ========================================================== */
+    :root {
+      /* Cores — base escura de alto contraste */
+      --cor-fundo:        #131313;  /* fundo principal da página */
+      --cor-superficie:   #1A1A1A;  /* cards, formulário, rodapé */
+      --cor-superficie-2: #202020;  /* placeholders de imagem */
+      --cor-borda:        #2B2B2B;  /* divisórias discretas */
+
+      /* Cor de destaque — usada SOMENTE em CTAs e pequenos ícones */
+      --cor-destaque:     #F97316;
+      --cor-destaque-esc: #EA580C;  /* estado :active / gradiente */
+
+      /* Texto */
+      --cor-titulo:       #FFFFFF;
+      --cor-texto:        #CCCCCC;
+      --cor-texto-fraco:  #808080;  /* legendas e metadados */
+
+      /* Tipografia */
+      --fonte-titulo: 'Oswald', 'Arial Narrow', sans-serif;
+      --fonte-texto:  'Poppins', system-ui, -apple-system, sans-serif;
+
+      /* Escala de tipo fluida (mobile → desktop, sem media query) */
+      --t-hero:  clamp(3rem, 12vw, 7.5rem);
+      --t-h2:    clamp(2rem, 6vw, 3.5rem);
+      --t-h3:    clamp(1.25rem, 3vw, 1.5rem);
+      --t-corpo: clamp(1rem, 2.2vw, 1.0625rem);
+
+      /* Layout */
+      --largura-max: 1200px;
+      --gutter: clamp(1.25rem, 5vw, 3rem);
+      --espaco-secao: clamp(4.5rem, 11vw, 8rem);
+
+      /* Movimento */
+      --transicao: 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+
+    /* ==========================================================
+       2. RESET E BASE
+       ========================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      background-color: var(--cor-fundo);
+      color: var(--cor-texto);
+      font-family: var(--fonte-texto);
+      font-size: var(--t-corpo);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--fonte-titulo);
+      color: var(--cor-titulo);
+      line-height: 0.98;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    p { max-width: 62ch; }          /* linha de leitura confortável */
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* Foco visível para navegação por teclado (acessibilidade) */
+    :focus-visible {
+      outline: 2px solid var(--cor-destaque);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* Container central reutilizável */
+    .container {
+      width: 100%;
+      max-width: var(--largura-max);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    .secao { padding-block: var(--espaco-secao); }
+
+    /* Cabeçalho de seção: título + linha de apoio */
+    .secao__titulo { font-size: var(--t-h2); margin-bottom: 0.75rem; }
+    .secao__intro  { color: var(--cor-texto); margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+
+    /* ==========================================================
+       3. BOTÕES E MICRO-INTERAÇÕES
+       O laranja aparece aqui e em poucos ícones — nada além disso.
+       ========================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      font-family: var(--fonte-texto);
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+      padding: 1.05rem 2.25rem;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform var(--transicao),
+                  box-shadow var(--transicao),
+                  background-color var(--transicao),
+                  border-color var(--transicao),
+                  color var(--transicao);
+    }
+
+    /* CTA principal — sólido no laranja */
+    .btn--principal {
+      background-color: var(--cor-destaque);
+      color: #131313;
+      box-shadow: 0 0 0 rgba(249, 115, 22, 0);
+    }
+    .btn--principal:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 32px rgba(249, 115, 22, 0.45);  /* brilho no accent */
+    }
+    .btn--principal:active { transform: scale(0.99); background-color: var(--cor-destaque-esc); }
+
+    /* CTA secundário — contorno neutro que ganha o accent no hover */
+    .btn--secundario { background-color: transparent; color: var(--cor-titulo); border-color: #3A3A3A; }
+    .btn--secundario:hover { transform: scale(1.04); border-color: var(--cor-destaque); color: var(--cor-destaque); }
+
+    .btn--grande { font-size: 1.0625rem; padding: 1.25rem 2.75rem; width: 100%; }
+    @media (min-width: 600px) { .btn--grande { width: auto; } }
+
+    /* ==========================================================
+       4. CABEÇALHO FIXO
+       Fundo transparente no topo; ganha cor ao rolar (classe via JS).
+       ========================================================== */
+    .cabecalho {
+      position: fixed; inset: 0 0 auto 0; z-index: 100;
+      padding-block: 1.125rem;
+      transition: background-color var(--transicao), border-color var(--transicao), padding var(--transicao);
+      border-bottom: 1px solid transparent;
+    }
+    .cabecalho.is-rolado {
+      background-color: rgba(19, 19, 19, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom-color: var(--cor-borda);
+      padding-block: 0.75rem;
+    }
+    .cabecalho__interno { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+
+    /* Logotipo: o ponto laranja é um dos raros usos do accent fora dos CTAs */
+    .logo { font-family: var(--fonte-titulo); font-size: 1.5rem; font-weight: 700; color: var(--cor-titulo); letter-spacing: 0.06em; }
+    .logo span { color: var(--cor-destaque); }
+
+    .nav { display: none; }
+    .nav__lista { display: flex; align-items: center; gap: 2rem; }
+    .nav__link { font-size: 0.9375rem; font-weight: 500; color: var(--cor-texto); position: relative; padding-block: 0.25rem; transition: color var(--transicao); }
+    /* Sublinhado que cresce a partir da esquerda no hover */
+    .nav__link::after {
+      content: ''; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+      background-color: var(--cor-destaque);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform var(--transicao);
+    }
+    .nav__link:hover { color: var(--cor-titulo); }
+    .nav__link:hover::after { transform: scaleX(1); }
+
+    /* Botão hambúrguer (só no mobile) */
+    .menu-btn {
+      display: inline-flex; flex-direction: column; justify-content: center; gap: 5px;
+      width: 44px; height: 44px; padding: 0 10px;
+      background: none; border: none; cursor: pointer;
+    }
+    .menu-btn span { display: block; height: 2px; background-color: var(--cor-titulo); transition: transform var(--transicao), opacity var(--transicao); }
+    .menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Painel de navegação mobile */
+    .nav-mobile {
+      display: grid; grid-template-rows: 0fr;
+      background-color: var(--cor-superficie);
+      transition: grid-template-rows var(--transicao);
+    }
+    .nav-mobile.is-aberto { grid-template-rows: 1fr; }
+    .nav-mobile__interno { overflow: hidden; }
+    .nav-mobile a {
+      display: block; padding: 1rem var(--gutter);
+      border-bottom: 1px solid var(--cor-borda);
+      font-weight: 500;
+      transition: color var(--transicao), background-color var(--transicao);
+    }
+    .nav-mobile a:hover { color: var(--cor-destaque); background-color: #1F1F1F; }
+
+    @media (min-width: 900px) {
+      .nav { display: block; }
+      .menu-btn, .nav-mobile { display: none; }
+    }
+
+    /* ==========================================================
+       5. HERO — tela cheia com "video background"
+       ========================================================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;          /* evita o "pulo" da barra no iOS */
+      display: flex; align-items: flex-end;
+      padding-block: 8rem 3.5rem;
+      overflow: hidden;
+    }
+
+    /* --- Placeholder do vídeo -------------------------------------
+       Simula um vídeo de fundo escuro com movimento lento.
+       PARA USAR VÍDEO REAL: substitua a div .hero__placeholder por
+       <video class="hero__video" autoplay muted loop playsinline
+              poster="capa.jpg"><source src="treino.mp4" type="video/mp4"></video>
+       e aplique: .hero__video { width:100%; height:100%; object-fit:cover; }
+       -------------------------------------------------------------- */
+    .hero__media { position: absolute; inset: 0; z-index: 0; }
+    .hero__placeholder {
+      width: 100%; height: 100%;
+      background-color: #101010;
+      background-image:
+        radial-gradient(ellipse 70% 55% at 72% 30%, rgba(249,115,22,0.16), transparent 70%),
+        radial-gradient(ellipse 60% 60% at 15% 80%, rgba(255,255,255,0.05), transparent 65%),
+        repeating-linear-gradient(115deg, rgba(255,255,255,0.022) 0 3px, transparent 3px 9px);
+      transform: scale(1.08);
+      animation: respirar 22s ease-in-out infinite alternate;  /* movimento lento de câmera */
+    }
+    @keyframes respirar {
+      from { transform: scale(1.08) translate3d(0, 0, 0); }
+      to   { transform: scale(1.16) translate3d(-2%, -1.5%, 0); }
+    }
+
+    /* Véu escuro: garante contraste do texto sobre qualquer vídeo */
+    .hero__veu {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        linear-gradient(to top, rgba(19,19,19,0.97) 6%, rgba(19,19,19,0.55) 48%, rgba(19,19,19,0.7) 100%);
+    }
+
+    .hero__conteudo { position: relative; z-index: 2; width: 100%; }
+
+    .hero__marcador {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.8125rem; font-weight: 500; color: var(--cor-texto);
+      margin-bottom: 1.5rem;
+    }
+    /* Ponto pulsante — detalhe pequeno no accent */
+    .hero__ponto {
+      width: 8px; height: 8px; border-radius: 50%;
+      background-color: var(--cor-destaque);
+      animation: pulsar 2.4s ease-in-out infinite;
+    }
+    @keyframes pulsar { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+    .hero__titulo {
+      font-size: var(--t-hero);
+      max-width: 14ch;
+      margin-bottom: 1.5rem;
+    }
+    /* Segunda linha em peso menor: cria hierarquia dentro do próprio H1 */
+    .hero__titulo em { display: block; font-style: normal; font-weight: 500; color: #E4E4E4; }
+
+    .hero__sub { font-size: clamp(1.0625rem, 2.6vw, 1.25rem); max-width: 48ch; margin-bottom: 2.5rem; }
+
+    .hero__acoes { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
+
+    /* Faixa de dados no rodapé do hero */
+    .hero__dados {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1rem;
+      padding-top: 2rem; border-top: 1px solid var(--cor-borda);
+    }
+    .dado__num { font-family: var(--fonte-titulo); font-size: 1.75rem; font-weight: 600; color: var(--cor-titulo); line-height: 1; }
+    .dado__rot { font-size: 0.8125rem; color: var(--cor-texto-fraco); margin-top: 0.35rem; }
+    @media (min-width: 720px) { .hero__dados { grid-template-columns: repeat(4, 1fr); } }
+
+    /* ==========================================================
+       6. MODALIDADES — grid de cards
+       ========================================================== */
+    .grid-modalidades { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+    @media (min-width: 640px) { .grid-modalidades { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1000px) { .grid-modalidades { grid-template-columns: repeat(4, 1fr); } }
+
+    .card {
+      background-color: var(--cor-superficie);
+      border: 1px solid var(--cor-borda);
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform var(--transicao), border-color var(--transicao);
+    }
+    .card:hover { transform: translateY(-6px); border-color: #3D3D3D; }
+
+    /* Placeholder de imagem: hachura diagonal + legenda do que entra ali */
+    .ph {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background-color: var(--cor-superficie-2);
+      background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.028) 0 10px, transparent 10px 20px);
+      display: grid; place-items: center;
+      border-bottom: 1px solid var(--cor-borda);
+    }
+    .ph__rotulo {
+      font-size: 0.75rem; color: #5E5E5E; text-align: center;
+      padding: 0 1rem; line-height: 1.4;
+    }
+    /* Cantoneira laranja: marca discreta de "área de foto" */
+    .ph::after {
+      content: ''; position: absolute; top: 12px; left: 12px;
+      width: 14px; height: 14px;
+      border-top: 2px solid var(--cor-destaque);
+      border-left: 2px solid var(--cor-destaque);
+      opacity: 0.75;
+    }
+
+    .card__corpo { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+    .card__titulo { font-size: var(--t-h3); margin-bottom: 0.6rem; }
+    .card__texto { font-size: 0.9375rem; color: var(--cor-texto); flex: 1; }
+
+    /* Metadados úteis (nível e duração) — informação, não enfeite */
+    .card__meta {
+      display: flex; gap: 1.5rem; margin-top: 1.25rem; padding-top: 1rem;
+      border-top: 1px solid var(--cor-borda);
+      font-size: 0.8125rem; color: var(--cor-texto-fraco);
+    }
+    .card__meta b { display: block; color: var(--cor-texto); font-weight: 500; }
+
+    /* ==========================================================
+       7. PROVA SOCIAL
+       ========================================================== */
+    .secao--alt { background-color: var(--cor-superficie); border-block: 1px solid var(--cor-borda); }
+
+    .grid-depoimentos { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+    @media (min-width: 860px) { .grid-depoimentos { grid-template-columns: repeat(3, 1fr); } }
+
+    .depoimento {
+      background-color: var(--cor-fundo);
+      border: 1px solid var(--cor-borda);
+      border-radius: 6px;
+      padding: 2rem 1.75rem;
+      display: flex; flex-direction: column;
+      transition: transform var(--transicao), border-color var(--transicao);
+    }
+    .depoimento:hover { transform: translateY(-4px); border-color: #3D3D3D; }
+
+    .depoimento__texto { font-size: 1rem; color: var(--cor-texto); flex: 1; margin-bottom: 1.75rem; }
+    .depoimento__aluno { display: flex; align-items: center; gap: 0.875rem; }
+
+    /* Avatar temporário com iniciais — troque por foto real do aluno */
+    .avatar {
+      width: 46px; height: 46px; flex-shrink: 0; border-radius: 50%;
+      background-color: var(--cor-superficie-2);
+      border: 1px solid var(--cor-borda);
+      display: grid; place-items: center;
+      font-family: var(--fonte-titulo); font-size: 0.9375rem; color: var(--cor-texto);
+    }
+    .aluno__nome { font-weight: 600; color: var(--cor-titulo); font-size: 0.9375rem; line-height: 1.3; }
+    .aluno__info { font-size: 0.8125rem; color: var(--cor-texto-fraco); }
+
+    /* ==========================================================
+       8. CAPTURA DE LEAD (formulário)
+       ========================================================== */
+    .captura { display: grid; gap: 3rem; align-items: start; }
+    @media (min-width: 940px) { .captura { grid-template-columns: 1fr 1fr; gap: 5rem; } }
+
+    .beneficios { margin-top: 2rem; display: grid; gap: 1rem; }
+    .beneficio { display: flex; align-items: flex-start; gap: 0.875rem; font-size: 0.9375rem; }
+    .beneficio svg { flex-shrink: 0; margin-top: 3px; color: var(--cor-destaque); }  /* ícone no accent */
+
+    .form {
+      background-color: var(--cor-superficie);
+      border: 1px solid var(--cor-borda);
+      border-radius: 8px;
+      padding: clamp(1.5rem, 4vw, 2.25rem);
+      display: grid; gap: 1.125rem;
+    }
+    .campo { display: grid; gap: 0.5rem; }
+    .campo label { font-size: 0.875rem; font-weight: 500; color: var(--cor-titulo); }
+
+    .campo input, .campo select {
+      width: 100%;
+      background-color: var(--cor-fundo);
+      border: 1px solid var(--cor-borda);
+      border-radius: 4px;
+      color: var(--cor-titulo);
+      font-family: var(--fonte-texto); font-size: 1rem;
+      padding: 0.875rem 1rem;
+      transition: border-color var(--transicao), box-shadow var(--transicao);
+    }
+    .campo input::placeholder { color: #5E5E5E; }
+    .campo input:focus, .campo select:focus {
+      outline: none;
+      border-color: var(--cor-destaque);
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.18);
+    }
+    .campo.tem-erro input, .campo.tem-erro select { border-color: #E05252; }
+
+    .erro { font-size: 0.8125rem; color: #F08A8A; min-height: 0; }
+    .form__nota { font-size: 0.8125rem; color: var(--cor-texto-fraco); text-align: center; }
+
+    /* Mensagem de sucesso (exibida via JS) */
+    .sucesso {
+      display: none;
+      text-align: center; padding: 2.5rem 1rem;
+    }
+    .sucesso.is-visivel { display: block; }
+    .sucesso__icone {
+      width: 56px; height: 56px; margin: 0 auto 1.25rem; border-radius: 50%;
+      background-color: rgba(249, 115, 22, 0.12);
+      border: 1px solid var(--cor-destaque);
+      display: grid; place-items: center; color: var(--cor-destaque);
+    }
+    .sucesso h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .sucesso p { margin-inline: auto; }
+
+    /* ==========================================================
+       9. RODAPÉ
+       ========================================================== */
+    .rodape { background-color: var(--cor-superficie); border-top: 1px solid var(--cor-borda); padding-block: clamp(3.5rem, 8vw, 5rem) 2rem; }
+    .rodape__grid { display: grid; gap: 2.5rem; grid-template-columns: 1fr; }
+    @media (min-width: 720px) { .rodape__grid { grid-template-columns: 1.4fr 1fr 1fr; gap: 3rem; } }
+
+    .rodape h4 {
+      font-family: var(--fonte-titulo); font-size: 1rem; font-weight: 600;
+      color: var(--cor-titulo); text-transform: uppercase; letter-spacing: 0.04em;
+      margin-bottom: 1.125rem;
+    }
+    .rodape__lista { display: grid; gap: 0.75rem; font-size: 0.9375rem; }
+    .rodape__lista a { transition: color var(--transicao); }
+    .rodape__lista a:hover { color: var(--cor-destaque); }
+    .rodape__texto { font-size: 0.9375rem; margin-top: 1rem; }
+
+    /* Ícones sociais */
+    .sociais { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .social {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 1px solid var(--cor-borda);
+      display: grid; place-items: center; color: var(--cor-texto);
+      transition: transform var(--transicao), color var(--transicao), border-color var(--transicao);
+    }
+    .social:hover { transform: scale(1.1); color: var(--cor-destaque); border-color: var(--cor-destaque); }
+
+    .rodape__base {
+      margin-top: 3rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--cor-borda);
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: space-between;
+      font-size: 0.8125rem; color: var(--cor-texto-fraco);
+    }
+
+    /* ==========================================================
+       10. ANIMAÇÃO DE ENTRADA NO SCROLL
+       Estado inicial aplicado só quando o JS está ativo (classe .js
+       no <html>), para que a página continue legível sem JavaScript.
+       ========================================================== */
+    .js .revelar {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    .js .revelar.is-visivel { opacity: 1; transform: none; }
+
+    /* Atraso em cascata para itens de grid (aplicado inline via JS) */
+
+    /* Respeita quem pediu menos animação no sistema operacional */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      .js .revelar { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ CABEÇALHO ============ -->
+  <header class="cabecalho" id="cabecalho">
+    <div class="container cabecalho__interno">
+      <a href="#topo" class="logo">FORJA<span>.</span></a>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <ul class="nav__lista">
+          <li><a href="#modalidades" class="nav__link">Modalidades</a></li>
+          <li><a href="#alunos" class="nav__link">Alunos</a></li>
+          <li><a href="#unidade" class="nav__link">Unidade</a></li>
+          <li><a href="#matricula" class="btn btn--principal" style="padding:0.7rem 1.5rem;">Matricule-se agora</a></li>
+        </ul>
+      </nav>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Navegação mobile -->
+    <div class="nav-mobile" id="navMobile">
+      <div class="nav-mobile__interno">
+        <a href="#modalidades">Modalidades</a>
+        <a href="#alunos">Alunos</a>
+        <a href="#unidade">Unidade</a>
+        <a href="#matricula">Matricule-se agora</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="topo">
+
+    <!-- ============ HERO (100vh) ============ -->
+    <section class="hero">
+      <!-- Fundo em vídeo (placeholder). Instruções de troca no CSS. -->
+      <div class="hero__media" aria-hidden="true">
+        <div class="hero__placeholder"></div>
+      </div>
+      <div class="hero__veu" aria-hidden="true"></div>
+
+      <div class="container hero__conteudo">
+        <p class="hero__marcador"><span class="hero__ponto"></span> Aberta hoje até 22h30</p>
+
+        <h1 class="hero__titulo">
+          Você não precisa
+          <em>de motivação. Precisa de método.</em>
+        </h1>
+
+        <p class="hero__sub">
+          Treino montado por professor, ajustado a cada seis semanas e acompanhado de perto na sala.
+          Sem fidelidade, sem taxa de adesão.
+        </p>
+
+        <div class="hero__acoes">
+          <a href="#matricula" class="btn btn--principal btn--grande">Matricule-se agora</a>
+          <a href="#modalidades" class="btn btn--secundario btn--grande">Ver modalidades</a>
+        </div>
+
+        <!-- Dados objetivos, não slogans -->
+        <div class="hero__dados">
+          <div class="dado"><p class="dado__num">1.400 m²</p><p class="dado__rot">Área de treino</p></div>
+          <div class="dado"><p class="dado__num">9</p><p class="dado__rot">Professores na sala</p></div>
+          <div class="dado"><p class="dado__num">05h–23h</p><p class="dado__rot">Segunda a sábado</p></div>
+          <div class="dado"><p class="dado__num">2.100</p><p class="dado__rot">Alunos ativos</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MODALIDADES ============ -->
+    <section class="secao" id="modalidades">
+      <div class="container">
+        <header class="revelar">
+          <h2 class="secao__titulo">Escolha por onde começar</h2>
+          <p class="secao__intro">Todas as modalidades estão incluídas no mesmo plano. Troque de treino quando quiser, sem custo extra.</p>
+        </header>
+
+        <div class="grid-modalidades">
+
+          <article class="card revelar">
+            <div class="ph"><p class="ph__rotulo">Foto real: sala de musculação, equipamentos e alunos treinando</p></div>
+            <div class="card__corpo">
+              <h3 class="card__titulo">Musculação</h3>
+              <p class="card__texto">Ficha individual revisada a cada seis semanas, com professor na sala corrigindo execução em todos os horários.</p>
+              <div class="card__meta">
+                <div><b>Livre</b>Horário</div>
+                <div><b>Todos</b>Nível</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card revelar">
+            <div class="ph"><p class="ph__rotulo">Foto real: área funcional com cordas, kettlebells e turma em circuito</p></div>
+            <div class="card__corpo">
+              <h3 class="card__titulo">Funcional</h3>
+              <p class="card__texto">Circuitos em grupos de até 12 pessoas. Alta intensidade, com progressão adaptada para quem está voltando a treinar.</p>
+              <div class="card__meta">
+                <div><b>50 min</b>Duração</div>
+                <div><b>Intermediário</b>Nível</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card revelar">
+            <div class="ph"><p class="ph__rotulo">Foto real: tatame, sacos de pancada e aula de luta em andamento</p></div>
+            <div class="card__corpo">
+              <h3 class="card__titulo">Luta</h3>
+              <p class="card__texto">Muay thai e boxe com turmas separadas por experiência. Luvas e bandagens emprestadas nas duas primeiras aulas.</p>
+              <div class="card__meta">
+                <div><b>60 min</b>Duração</div>
+                <div><b>Iniciante</b>Nível</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card revelar">
+            <div class="ph"><p class="ph__rotulo">Foto real: sala de yoga com luz baixa, tapetes e turma em prática</p></div>
+            <div class="card__corpo">
+              <h3 class="card__titulo">Yoga</h3>
+              <p class="card__texto">Prática de mobilidade e respiração pela manhã e no fim da tarde. Funciona bem como recuperação entre dias pesados.</p>
+              <div class="card__meta">
+                <div><b>55 min</b>Duração</div>
+                <div><b>Todos</b>Nível</div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROVA SOCIAL ============ -->
+    <section class="secao secao--alt" id="alunos">
+      <div class="container">
+        <header class="revelar">
+          <h2 class="secao__titulo">Quem treina aqui</h2>
+          <p class="secao__intro">Depoimentos coletados na unidade em março de 2026.</p>
+        </header>
+
+        <div class="grid-depoimentos">
+
+          <figure class="depoimento revelar">
+            <blockquote class="depoimento__texto">
+              <p>Entrei sem nunca ter pisado numa academia e com medo de passar vergonha. Na primeira semana o professor treinou junto comigo. Hoje venho cinco vezes por semana e faço questão do horário das seis da manhã.</p>
+            </blockquote>
+            <figcaption class="depoimento__aluno">
+              <div class="avatar" aria-hidden="true">CM</div>
+              <div>
+                <p class="aluno__nome">Camila Moretti</p>
+                <p class="aluno__info">Aluna há 1 ano e 4 meses</p>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="depoimento revelar">
+            <blockquote class="depoimento__texto">
+              <p>Já tinha passado por três academias e sempre parava em dois meses. A diferença aqui foi a revisão da ficha: quando o treino muda, a vontade de vir volta. Perdi 11 kg sem dieta maluca.</p>
+            </blockquote>
+            <figcaption class="depoimento__aluno">
+              <div class="avatar" aria-hidden="true">RA</div>
+              <div>
+                <p class="aluno__nome">Rodrigo Alves</p>
+                <p class="aluno__info">Aluno há 2 anos</p>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="depoimento revelar">
+            <blockquote class="depoimento__texto">
+              <p>Trabalho em escala e precisava de um lugar aberto cedo e tarde. Consigo encaixar musculação de manhã e funcional depois do plantão. Nunca peguei aparelho quebrado.</p>
+            </blockquote>
+            <figcaption class="depoimento__aluno">
+              <div class="avatar" aria-hidden="true">JS</div>
+              <div>
+                <p class="aluno__nome">Juliana Santos</p>
+                <p class="aluno__info">Aluna há 8 meses</p>
+              </div>
+            </figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CAPTURA DE LEAD ============ -->
+    <section class="secao" id="matricula">
+      <div class="container captura">
+
+        <div class="revelar">
+          <h2 class="secao__titulo">Sua primeira aula é por nossa conta</h2>
+          <p>Preencha os dados e a recepção entra em contato em até 2 horas úteis para marcar o melhor horário.</p>
+
+          <div class="beneficios">
+            <p class="beneficio">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Avaliação física completa sem custo
+            </p>
+            <p class="beneficio">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Treino montado no mesmo dia da visita
+            </p>
+            <p class="beneficio">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Plano mensal sem fidelidade e sem adesão
+            </p>
+          </div>
+        </div>
+
+        <!-- Formulário. novalidate: a validação é feita pelo JS abaixo. -->
+        <div class="revelar">
+          <form class="form" id="formMatricula" novalidate>
+            <div class="campo">
+              <label for="nome">Nome completo</label>
+              <input type="text" id="nome" name="nome" placeholder="Como podemos te chamar" autocomplete="name">
+              <p class="erro" data-erro="nome"></p>
+            </div>
+
+            <div class="campo">
+              <label for="whatsapp">WhatsApp</label>
+              <input type="tel" id="whatsapp" name="whatsapp" placeholder="(44) 90000-0000" autocomplete="tel" inputmode="numeric" maxlength="15">
+              <p class="erro" data-erro="whatsapp"></p>
+            </div>
+
+            <div class="campo">
+              <label for="objetivo">O que você quer treinar primeiro</label>
+              <select id="objetivo" name="objetivo">
+                <option value="">Selecione uma modalidade</option>
+                <option>Musculação</option>
+                <option>Funcional</option>
+                <option>Luta</option>
+                <option>Yoga</option>
+                <option>Ainda não sei</option>
+              </select>
+              <p class="erro" data-erro="objetivo"></p>
+            </div>
+
+            <button type="submit" class="btn btn--principal btn--grande">Agendar aula gratuita</button>
+            <p class="form__nota">Usamos seus dados só para este contato. Sem disparo em massa.</p>
+          </form>
+
+          <!-- Confirmação exibida depois do envio -->
+          <div class="sucesso" id="sucesso" role="status" aria-live="polite">
+            <div class="sucesso__icone">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h3>Agendamento enviado</h3>
+            <p id="sucessoTexto">A recepção entra em contato em até 2 horas úteis.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ RODAPÉ ============ -->
+  <footer class="rodape" id="unidade">
+    <div class="container">
+      <div class="rodape__grid">
+
+        <div>
+          <p class="logo">FORJA<span>.</span></p>
+          <p class="rodape__texto">Centro de treinamento em Terra Boa, Paraná. Musculação, funcional, luta e yoga no mesmo plano.</p>
+
+          <div class="sociais">
+            <a href="#" class="social" aria-label="Instagram da FORJA">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" class="social" aria-label="Facebook da FORJA">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 2h-3a5 5 0 00-5 5v3H4v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="#" class="social" aria-label="WhatsApp da FORJA">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 01-12.6 7.3L3 20.5l1.8-5.2A8.4 8.4 0 1121 11.5z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Onde estamos</h4>
+          <div class="rodape__lista">
+            <p>Av. Presidente Kennedy, 780<br>Centro — Terra Boa, PR<br>CEP 87240-000</p>
+            <a href="#">Abrir rota no mapa</a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Contato</h4>
+          <div class="rodape__lista">
+            <a href="tel:+554430000000">(44) 3000-0000</a>
+            <a href="mailto:contato@forja.com.br">contato@forja.com.br</a>
+            <p>Segunda a sexta: 05h — 23h<br>Sábado: 08h — 18h<br>Domingo: 09h — 13h</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="rodape__base">
+        <p>© <span id="ano"></span> FORJA Centro de Treinamento. CNPJ 00.000.000/0001-00.</p>
+        <p>CREF responsável técnico: 000000-G/PR</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ==========================================================
+       Marca que o JS está ativo. Sem isso, o CSS não esconde nada
+       e a página funciona normalmente com JavaScript desabilitado.
+       ========================================================== */
+    document.documentElement.classList.add('js');
+
+    /* ---------- 1. Cabeçalho ganha fundo ao rolar ---------- */
+    const cabecalho = document.getElementById('cabecalho');
+    const aoRolar = () => cabecalho.classList.toggle('is-rolado', window.scrollY > 40);
+    window.addEventListener('scroll', aoRolar, { passive: true });
+    aoRolar();
+
+    /* ---------- 2. Menu mobile ---------- */
+    const menuBtn = document.getElementById('menuBtn');
+    const navMobile = document.getElementById('navMobile');
+
+    menuBtn.addEventListener('click', () => {
+      const aberto = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!aberto));
+      menuBtn.setAttribute('aria-label', aberto ? 'Abrir menu' : 'Fechar menu');
+      navMobile.classList.toggle('is-aberto', !aberto);
+    });
+
+    // Fecha o menu ao clicar em qualquer link interno
+    navMobile.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Abrir menu');
+        navMobile.classList.remove('is-aberto');
+      });
+    });
+
+    /* ---------- 3. Revelar elementos no scroll ----------
+       IntersectionObserver é mais leve que ouvir o evento de scroll.
+       Itens irmãos entram em cascata com pequeno atraso.
+    ------------------------------------------------------ */
+    const alvos = document.querySelectorAll('.revelar');
+
+    if ('IntersectionObserver' in window) {
+      const observador = new IntersectionObserver((entradas) => {
+        entradas.forEach((entrada) => {
+          if (!entrada.isIntersecting) return;
+          const el = entrada.target;
+          const irmaos = Array.from(el.parentElement.children).filter(n => n.classList.contains('revelar'));
+          el.style.transitionDelay = (irmaos.indexOf(el) * 90) + 'ms';
+          el.classList.add('is-visivel');
+          observador.unobserve(el);           // anima uma única vez
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+      alvos.forEach(el => observador.observe(el));
+    } else {
+      alvos.forEach(el => el.classList.add('is-visivel'));  // fallback
+    }
+
+    /* ---------- 4. Máscara de telefone ---------- */
+    const whatsapp = document.getElementById('whatsapp');
+    whatsapp.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 6)      v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+      else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+      else if (v.length > 0) v = `(${v}`;
+      e.target.value = v;
+    });
+
+    /* ---------- 5. Validação e envio do formulário ----------
+       Substitua o bloco marcado por um fetch() para o seu CRM,
+       webhook ou serviço de e-mail.
+    --------------------------------------------------------- */
+    const form = document.getElementById('formMatricula');
+    const sucesso = document.getElementById('sucesso');
+    const sucessoTexto = document.getElementById('sucessoTexto');
+
+    const mostrarErro = (campoId, mensagem) => {
+      const input = document.getElementById(campoId);
+      input.closest('.campo').classList.toggle('tem-erro', Boolean(mensagem));
+      document.querySelector(`[data-erro="${campoId}"]`).textContent = mensagem;
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valido = true;
+
+      const nome = document.getElementById('nome').value.trim();
+      if (nome.length < 3) { mostrarErro('nome', 'Digite seu nome completo.'); valido = false; }
+      else mostrarErro('nome', '');
+
+      const digitos = whatsapp.value.replace(/\D/g, '');
+      if (digitos.length < 10) { mostrarErro('whatsapp', 'Informe um número com DDD.'); valido = false; }
+      else mostrarErro('whatsapp', '');
+
+      const objetivo = document.getElementById('objetivo');
+      if (!objetivo.value) { mostrarErro('objetivo', 'Escolha uma opção para começarmos.'); valido = false; }
+      else mostrarErro('objetivo', '');
+
+      if (!valido) {
+        form.querySelector('.tem-erro input, .tem-erro select').focus();
+        return;
+      }
+
+      // >>> AQUI ENTRA O ENVIO REAL (fetch para o backend/CRM) <<<
+      const dados = { nome, whatsapp: whatsapp.value, objetivo: objetivo.value };
+      console.log('Lead capturado:', dados);
+
+      sucessoTexto.textContent = `${nome.split(' ')[0]}, recebemos seu pedido. A recepção entra em contato em até 2 horas úteis.`;
+      form.style.display = 'none';
+      sucesso.classList.add('is-visivel');
+    });
+
+    /* ---------- 6. Ano atual no rodapé ---------- */
+    document.getElementById('ano').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

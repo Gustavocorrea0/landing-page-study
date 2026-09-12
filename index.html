@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfólio · Landing Pages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0A0B0D;
+    --bg-card: #101319;
+    --line: #23262D;
+    --ink: #FFFFFF;
+    --ink-dim: #868D99;
+    --blue: #3E7BFA;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    line-height:1.5;
+  }
+  header{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 80px 24px 44px;
+    border-bottom: 1px solid var(--line);
+  }
+  header h1{
+    font-weight:600;
+    font-size: clamp(30px, 4.6vw, 44px);
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+  }
+  header p{
+    color: var(--ink-dim);
+    max-width: 46ch;
+    margin:0;
+    font-size:16px;
+  }
+  main{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+  section{ margin-top: 60px; }
+  section h2{
+    font-weight:600;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: var(--ink-dim);
+    margin: 0 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--blue);
+  }
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .card{
+    display:block;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    text-decoration:none;
+    color: inherit;
+    overflow:hidden;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .card:hover{
+    transform: translateY(-3px);
+    border-color: var(--blue);
+  }
+  .card .thumb{
+    width:100%;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    display:block;
+    background: #06070A;
+  }
+  .card-body{ padding: 16px 18px 20px; }
+  .card-body h3{
+    margin: 0 0 6px;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  .card-body p{
+    margin:0;
+    font-size: 14px;
+    color: var(--ink-dim);
+  }
+  .status{
+    display:inline-block;
+    margin-top:10px;
+    font-size:12px;
+    color: var(--blue);
+  }
+  .soon{
+    opacity: .5;
+    pointer-events: none;
+  }
+  footer{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+    color: var(--ink-dim);
+    font-size: 13px;
+    border-top: 1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Landing pages sob medida</h1>
+  <p>Um catálogo dos modelos que venho desenvolvendo para diferentes tipos de negócio. Escolha um projeto abaixo para navegar até a página completa.</p>
+</header>
+
+<main>
+
+  <section>
+    <h2>Cardápio online</h2>
+    <div class="grid">
+      <a class="card" href="cardapio-online/loja-destilados-1/index.html">
+        <img class="thumb" src="img/loja-destilados.png" alt="Loja de destilados">
+        <div class="card-body">
+          <h3>Loja de Destilados</h3>
+          <p>Catálogo digital de bebidas com rótulos, preços e pedido direto.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Academia &amp; fitness</h2>
+    <div class="grid">
+      <a class="card" href="gym/forja_fitness/index.html">
+        <img class="thumb" src="img/forja-fitness.png" alt="Forja Fitness">
+        <div class="card-body">
+          <h3>Forja Fitness</h3>
+          <p>Apresentação da academia, modalidades e equipe de professores.</p>
+        </div>
+      </a>
+      <a class="card" href="gym/forja_fitness_2/forja-academia.html">
+        <img class="thumb" src="img/forja-fitness-2.png" alt="Forja Fitness — versão 2">
+        <div class="card-body">
+          <h3>Forja Fitness · versão 2</h3>
+          <p>Segunda proposta de layout para o mesmo cliente.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Em produção</h2>
+    <div class="grid">
+      <div class="card soon">
+        <div class="card-body">
+          <h3>Novo projeto</h3>
+          <p>Próxima landing page do catálogo.</p>
+          <span class="status">Em breve</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Portfólio pessoal · páginas prontas para adaptação a novos clientes.
+</footer>
+
+</body>
+</html>

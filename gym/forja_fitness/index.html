@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Academia em Terra Boa | Musculação, Crossfit e Luta — Forja Fitness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+
+<style>
+  body { margin: 0; background: #0A0D0F; color: #F2F4F3; font-family: Manrope, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  html { scrollbar-width: none; -ms-overflow-style: none; }
+  html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
+  a { color: #C9F24D; text-decoration: none; }
+  @keyframes forjaRevealImg { 0% { clip-path: inset(0 100% 0 0); } 100% { clip-path: inset(0 0 0 0); } }
+  @keyframes forjaRevealWipe { 0% { transform: translateX(-101%); } 45% { transform: translateX(0); } 100% { transform: translateX(101%); } }
+  .hero-reveal > img { animation: forjaRevealImg .75s cubic-bezier(.76,0,.24,1) .25s both; }
+  .hero-wipe { animation: forjaRevealWipe 1.15s cubic-bezier(.76,0,.24,1) .1s both; }
+  .hero-reveal > img { transition: transform .7s cubic-bezier(.2,.7,.2,1); will-change: transform; }
+  .hero-reveal:hover > img { transform: translateY(-5px); }
+  .nav-links a { position: relative; padding-bottom: 4px; }
+  .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: #C9F24D; transform: scaleX(0); transform-origin: left; transition: transform .3s cubic-bezier(.76,0,.24,1); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .btn-outline { transition: border-color .16s ease; }
+  .btn-outline:hover { border-color: #C9F24D; }
+  a:hover { color: #E4FF9A; }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] .faq-plus { transform: rotate(45deg); }
+  .zoomimg { transition: transform .55s cubic-bezier(.22,.61,.36,1); }
+  .zoomcard:hover .zoomimg { transform: scale(1.06); }
+  .veil { opacity: 0; transition: opacity .35s ease; }
+  .zoomcard:hover .veil { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .zoomimg { transition: none; } }
+  @media (max-width: 880px) {
+    .nav-links { display: none !important; }
+    .nav-cta { display: none !important; }
+    .nav-burger { display: flex !important; }
+  }
+</style>
+</helmet>
+
+<div style="max-width:100%;overflow-x:hidden">
+
+<header style="position:sticky;top:0;z-index:50;background:rgba(10,13,15,0.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.08)">
+  <div style="max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+    <div style="display:flex;align-items:baseline;gap:10px">
+      <span style="font-family:Anton,sans-serif;font-size:22px;letter-spacing:0.04em;text-transform:uppercase">Forja</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.22em;color:#8E9799;text-transform:uppercase">Fitness</span>
+    </div>
+    <nav class="nav-links" style="display:flex;gap:26px;font-size:13.5px;font-weight:600;color:#B9C0C2">
+      <a href="#metodo" style="color:#B9C0C2">Primeiro mês</a>
+      <a href="#modalidades" style="color:#B9C0C2">Modalidades</a>
+      <a href="#planos" style="color:#B9C0C2">Planos</a>
+      <a href="#faq" style="color:#B9C0C2">Dúvidas</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:12px">
+      <a class="nav-cta" style="background:#C9F24D;color:#0A0D0F;font-weight:800;font-size:13.5px;padding:11px 20px;border-radius:6px;white-space:nowrap;transition:background .16s ease,transform .16s ease,box-shadow .16s ease" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,0.45)">Agendar aula grátis</a>
+      <button class="nav-burger" type="button" onClick="{{ alternarMenu }}" aria-label="Abrir menu" aria-expanded="{{ menuAberto }}" style="display:none;flex-direction:column;justify-content:center;gap:5px;width:46px;height:46px;padding:0 12px;background:transparent;border:1px solid rgba(255,255,255,0.18);border-radius:8px;cursor:pointer">
+        <span style="display:block;height:2px;width:100%;background:#F2F4F3;border-radius:2px"></span>
+        <span style="display:block;height:2px;width:100%;background:#F2F4F3;border-radius:2px"></span>
+        <span style="display:block;height:2px;width:100%;background:#F2F4F3;border-radius:2px"></span>
+      </button>
+    </div>
+  </div>
+  <sc-if value="{{ menuAberto }}" hint-placeholder-val="{{ false }}">
+    <div class="nav-panel" style="border-top:1px solid rgba(255,255,255,0.1);background:#0A0D0F;padding:12px 24px 22px">
+      <a href="#metodo" onClick="{{ fecharMenu }}" style="display:block;padding:14px 0;font-size:16px;font-weight:700;color:#F2F4F3;border-bottom:1px solid rgba(255,255,255,0.08)">Primeiro mês</a>
+      <a href="#modalidades" onClick="{{ fecharMenu }}" style="display:block;padding:14px 0;font-size:16px;font-weight:700;color:#F2F4F3;border-bottom:1px solid rgba(255,255,255,0.08)">Modalidades</a>
+      <a href="#planos" onClick="{{ fecharMenu }}" style="display:block;padding:14px 0;font-size:16px;font-weight:700;color:#F2F4F3;border-bottom:1px solid rgba(255,255,255,0.08)">Planos</a>
+      <a href="#faq" onClick="{{ fecharMenu }}" style="display:block;padding:14px 0;font-size:16px;font-weight:700;color:#F2F4F3;border-bottom:1px solid rgba(255,255,255,0.08)">Dúvidas</a>
+      <a onClick="{{ fecharMenu }}" style="display:block;margin-top:18px;text-align:center;background:#C9F24D;color:#0A0D0F;font-weight:800;font-size:16px;padding:15px;border-radius:7px;transition:background .16s ease,transform .16s ease,box-shadow .16s ease" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,0.45)">Agendar aula grátis</a>
+    </div>
+  </sc-if>
+</header>
+
+<section style="position:relative;padding:0">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(40px,6vw,84px) 24px clamp(36px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(28px,4vw,56px);align-items:center">
+    <div style="min-width:0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9F24D;margin-bottom:20px">Academia no centro de Terra Boa</div>
+      <h1 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(40px,6.4vw,82px);line-height:0.92;letter-spacing:-0.01em;margin:0 0 22px">Seus 30 primeiros dias com <span style="color:#C9F24D">professor junto</span></h1>
+      <p style="font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:#B9C0C2;margin:0 0 30px;max-width:520px;text-wrap:pretty">Musculação, Crossfit e Luta no centro de Terra Boa.<br>Sua aula experimental é gratuita.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px">
+        <a style="color: #0A0D0F; font-weight: 800; font-size: 16px; padding: 16px 28px; border-radius: 7px; transition: background .16s ease,transform .16s ease,box-shadow .16s ease; background-color: #C9F24D" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Agendar aula grátis</a>
+        <a href="#metodo" class="btn-outline" style="border: 1px solid rgba(255,255,255,0.22); color: #F2F4F3; font-weight: 700; font-size: 16px; padding: 16px 26px; border-radius: 7px; border-color: #C9F24D; transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease" style-hover="transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Como funciona</a>
+      </div>
+      <div style="font-size:13px;color:#8E9799;margin-bottom:26px">Resposta pelo WhatsApp • Sem compromisso • 300 alunos treinando</div>
+      <div style="display:flex;flex-wrap:wrap;gap:32px;padding-top:26px;border-top:1px solid rgba(255,255,255,0.1)">
+        <div><div style="font-family:Anton,sans-serif;font-size:34px;line-height:1">300</div><div style="font-size:12px;color:#8E9799;letter-spacing:0.06em;text-transform:uppercase;margin-top:4px">alunos treinando</div></div>
+        <div><div style="font-family:Anton,sans-serif;font-size:34px;line-height:1">103h</div><div style="font-size:12px;color:#8E9799;letter-spacing:0.06em;text-transform:uppercase;margin-top:4px">abertos por semana</div></div>
+        <div><div style="font-family:Anton,sans-serif;font-size:34px;line-height:1">2 anos</div><div style="font-size:12px;color:#8E9799;letter-spacing:0.06em;text-transform:uppercase;margin-top:4px">no centro</div></div>
+      </div>
+    </div>
+    <div data-parallax="0.055" style="position:relative;min-width:0;aspect-ratio:4/5;max-height:620px;will-change:transform">
+      <div class="hero-reveal" style="position:absolute;inset:0;overflow:hidden;border-radius:14px">
+        <img src="img/mulher_home_page_chatgpt.png" alt="Foto real da sala cheia — horário de pico" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div class="hero-wipe" style="position: absolute; inset: 0; background: #C9F24D; pointer-events: none"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08);background:#0D1113">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,88px) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,4vw,64px)">
+    <div style="min-width:0">
+      <p style="font-size:clamp(19px,2.1vw,26px);line-height:1.45;margin:0 0 22px;text-wrap:pretty">Todo mundo que entra aqui pela primeira vez tem a mesma cara. Olha pro lado, não sabe em qual aparelho sentar, finge que está mexendo no celular.</p>
+      <p style="font-family:Anton,sans-serif;text-transform:uppercase;font-size:clamp(26px,3vw,40px);line-height:1.05;color:#C9F24D;margin:0 0 22px">Na Forja isso dura zero dia.</p>
+      <p style="font-size:16.5px;line-height:1.65;color:#B9C0C2;margin:0;text-wrap:pretty">Você faz uma avaliação física, um professor monta seu treino e fica com você durante os primeiros 30 dias. Não é "qualquer dúvida chama". É acompanhamento na sala, com você, corrigindo enquanto você executa.</p>
+    </div>
+    <div style="min-width:0;display:flex;flex-direction:column;justify-content:center;gap:18px;border-left:3px solid #F2622E;padding-left:clamp(20px,3vw,34px)">
+      <p style="font-size:clamp(18px,2vw,23px);line-height:1.45;margin:0;text-wrap:pretty">"Ferro bruto não vira lâmina sozinho. Precisa de calor, martelo e alguém que saiba a hora certa de bater."</p>
+      <p style="font-family:Anton,sans-serif;text-transform:uppercase;font-size:clamp(20px,2.4vw,30px);line-height:1.1;margin:0">O calor e o martelo a gente tem.<br><span style="color:#F2622E">Falta você.</span></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8E9799;margin-bottom:16px">01 — Se você chegou até aqui</div>
+    <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(28px,4vw,52px);line-height:1;margin:0 0 40px;max-width:800px">Provavelmente já viveu alguma dessas</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 1px; border: 1px solid rgba(255,255,255,0.08); background-color: #FFFFFF00">
+      <div data-reveal="1" style="background:#0A0D0F;padding:26px 24px;font-size:16px;line-height:1.55;color:#D7DBDC">Você já pagou mensalidade de academia que não usou. Doeu mais no orgulho que no bolso.</div>
+      <div data-reveal="1" style="background:#0A0D0F;padding:26px 24px;font-size:16px;line-height:1.55;color:#D7DBDC">Já entrou numa sala de musculação, olhou pros aparelhos e foi direto pra esteira — o único que você sabia usar.</div>
+      <div data-reveal="1" style="background:#0A0D0F;padding:26px 24px;font-size:16px;line-height:1.55;color:#D7DBDC">Já disse "segunda-feira eu começo" tantas vezes que virou piada interna.</div>
+      <div data-reveal="1" style="background:#0A0D0F;padding:26px 24px;font-size:16px;line-height:1.55;color:#D7DBDC">Sai do trabalho tarde, entra cedo, e a academia que você conhece está fechada nos dois horários.</div>
+      <div data-reveal="1" style="background:#0A0D0F;padding:26px 24px;font-size:16px;line-height:1.55;color:#D7DBDC">Tem mais de 40 e trava com medo de se machucar fazendo errado.</div>
+      <div data-reveal="1" style="background:#0A0D0F;padding:26px 24px;font-size:16px;line-height:1.55;color:#D7DBDC">Treinou três meses, parou um, e nunca mais teve coragem de voltar.</div>
+    </div>
+    <p style="font-size:clamp(17px,1.9vw,22px);line-height:1.5;margin:34px 0 0;max-width:760px;text-wrap:pretty">Nada disso é fraqueza. É falta de alguém do seu lado nas primeiras semanas — <span style="color:#C9F24D">que é exatamente onde quase todo mundo desiste.</span></p>
+  </div>
+</section>
+
+<section id="metodo" style="background:#0D1113;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08)">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9F24D;margin-bottom:16px">02 — O mecanismo</div>
+    <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(32px,5vw,66px);line-height:0.98;margin:0 0 18px">Primeiro Mês na Forja</h2>
+    <p style="font-size:clamp(16px,1.7vw,20px);color:#B9C0C2;margin:0 0 48px;max-width:640px;line-height:1.5">Nosso jeito de fazer você atravessar as 4 semanas em que a maioria abandona.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+      <div data-reveal="1" style="background:#121719;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:30px 26px">
+        <div style="font-family:Anton,sans-serif;font-size:44px;line-height:1;color:#C9F24D;margin-bottom:18px">1</div>
+        <h3 style="font-size:20px;font-weight:800;margin:0 0 12px">Aula experimental grátis</h3>
+        <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Você treina de verdade, conhece a estrutura e decide depois. Sem assinar nada.</p>
+      </div>
+      <div data-reveal="1" style="background:#121719;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:30px 26px">
+        <div style="font-family:Anton,sans-serif;font-size:44px;line-height:1;color:#C9F24D;margin-bottom:18px">2</div>
+        <h3 style="font-size:20px;font-weight:800;margin:0 0 12px">Avaliação física</h3>
+        <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">A gente mede onde você está hoje. O treino nasce daí, não de uma ficha genérica que serve pra qualquer um.</p>
+      </div>
+      <div data-reveal="1" style="background:#121719;border:1px solid #C9F24D;border-radius:10px;padding:30px 26px">
+        <div style="font-family:Anton,sans-serif;font-size:44px;line-height:1;color:#C9F24D;margin-bottom:18px">3</div>
+        <h3 style="font-size:20px;font-weight:800;margin:0 0 12px">30 dias com professor acompanhando</h3>
+        <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Ele mostra o aparelho, corrige a execução, ajusta a carga e sente sua falta quando você some.</p>
+      </div>
+    </div>
+    <p style="font-size:clamp(16px,1.7vw,20px);line-height:1.55;margin:36px 0 0;max-width:760px;text-wrap:pretty">Passado esse mês, você entra na sala sabendo exatamente o que fazer. Esse é o ponto: <span style="color:#C9F24D">te tornar independente, não dependente.</span></p>
+
+    <div style="margin-top:40px;display:flex;flex-wrap:wrap;gap:22px;align-items:center;background:#0A0D0F;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:24px">
+      
+      <div style="flex:1;min-width:240px">
+        <p style="font-size:17px;line-height:1.5;margin:0 0 10px;text-wrap:pretty">"No começo eu tinha muita vergonha de treinar na frente de outras pessoas. Os professores tiveram muita paciência comigo e me ajudaram a ganhar confiança."</p>
+        <div style="font-size:13px;color:#8E9799;font-weight:700">Beatriz, 19 anos · aluna há 1 Ano</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="modalidades">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8E9799;margin-bottom:16px">03 — Modalidades</div>
+    <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(32px,4.6vw,60px);line-height:0.98;margin:0 0 44px">Três formas de treinar. <span style="color:#C9F24D">Um plano só.</span></h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+      <div class="zoomcard" data-reveal="1" style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;background:#0D1113">
+        <div style="aspect-ratio:4/3;position:relative;overflow:hidden"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/MUSCULACAO.jpg" alt="Sala de musculação" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:20px;background:linear-gradient(180deg,rgba(10,13,15,0) 35%,rgba(10,13,15,0.92) 100%);pointer-events:none"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9F24D">EQUIPAMENTOS DE ALTA QUALIDADE · TREINO PERIODIZADO</span><span style="font-size:13.5px;color:#D7DBDC">Seg a sex 5h–23h · sáb 5h–18h</span></div></div>
+        <div style="padding:26px 24px">
+          <h3 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;margin:0 0 12px">Musculação</h3>
+          <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Sala completa, ar-condicionado e treino periodizado. Pra quem quer hipertrofia com progressão de carga séria, não circuito de revista.</p>
+        </div>
+      </div>
+      <div class="zoomcard" data-reveal="1" style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;background:#0D1113">
+        <div style="aspect-ratio:4/3;position:relative;overflow:hidden"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/CROSSFIT.jpg" alt="Box de crossfit / funcional" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:20px;background:linear-gradient(180deg,rgba(10,13,15,0) 35%,rgba(10,13,15,0.92) 100%);pointer-events:none"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9F24D">Sessões de 40 minutos · alta intensidade</span><span style="font-size:13.5px;color:#D7DBDC">Seg a sex 5h–23h · sáb 5h–18h</span></div></div>
+        <div style="padding:26px 24px">
+          <h3 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;margin:0 0 12px">Crossfit / Funcional</h3>
+          <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Alta intensidade, movimento composto, treino que acaba com você em 40 minutos. Pra quem gosta de sair da sessão sem conseguir falar direito.</p>
+        </div>
+      </div>
+      <div class="zoomcard" data-reveal="1" style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;background:#0D1113">
+        <div style="aspect-ratio:4/3;position:relative;overflow:hidden"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/BOXE.jpg" alt="Sala de luta / boxe" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:20px;background:linear-gradient(180deg,rgba(10,13,15,0) 35%,rgba(10,13,15,0.92) 100%);pointer-events:none"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9F24D">BOXE E MUAY THAI</span><span style="font-size:13.5px;color:#D7DBDC">Seg a sex 5h–23h · sáb 5h–18h</span></div></div>
+        <div style="padding:26px 24px">
+          <h3 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;margin:0 0 12px">Luta</h3>
+          <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Técnica, condicionamento e cabeça. Pra quem quer aprender a se defender e queimar o dia junto.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.1);padding-top:26px">
+      <p style="font-size:17px;margin:0;max-width:420px;line-height:1.5">Cansou de uma, muda pra outra. Sem trocar de academia e sem pagar a mais.</p>
+      <div style="font-size:14.5px;color:#B9C0C2;line-height:1.6;text-align:right">Seg a sex das 5h às 23h · Sábado das 5h às 18h<br><span style="color:#C9F24D;font-weight:700">103 horas de academia aberta por semana. Sua rotina cabe aqui.</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#0D1113;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08)">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8E9799;margin-bottom:16px">04 — O que muda pra você</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px 44px;margin-top:36px">
+      <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você entra sabendo o que fazer.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Chega, olha o treino, executa. Sem rodar a sala procurando aparelho e coragem.</p></div>
+      <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Seu treino cabe na sua rotina, não o contrário.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Aberto das 5h às 23h — antes do trabalho, no intervalo ou depois do turno da noite.</p></div>
+      <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você para de treinar errado.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Execução corrigida desde o primeiro dia: resultado mais rápido e menos chance de lesão.</p></div>
+      <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você escolhe como quer suar.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Musculação, crossfit ou luta no mesmo plano.</p></div>
+      <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você chega e estaciona.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Estacionamento próprio. Ninguém aqui perde o treino procurando vaga.</p></div>
+      <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você treina sem derreter.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Ar-condicionado na sala inteira. Verão de Terra Boa não é desculpa.</p></div>
+      <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você nunca treina sozinho de verdade.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">São 300 pessoas passando por aqui. Sempre tem gente no seu horário puxando junto.</p></div>
+      <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Depois do treino, você fica.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Telão com os jogos e bebida gelada. A academia vira o lugar onde você quer estar, não onde você tem que ir.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.08);margin-bottom:64px">
+      <div data-reveal="1" style="background:#0A0D0F;padding:30px 24px"><div style="font-family:Anton,sans-serif;font-size:clamp(36px,4vw,52px);line-height:1;color:#C9F24D">300</div><div style="font-size:13px;color:#9AA3A6;margin-top:6px">alunos treinando</div></div>
+      <div data-reveal="1" style="background:#0A0D0F;padding:30px 24px"><div style="font-family:Anton,sans-serif;font-size:clamp(36px,4vw,52px);line-height:1;color:#C9F24D">2</div><div style="font-size:13px;color:#9AA3A6;margin-top:6px">anos no centro de Terra Boa</div></div>
+      <div data-reveal="1" style="background:#0A0D0F;padding:30px 24px"><div style="font-family:Anton,sans-serif;font-size:clamp(36px,4vw,52px);line-height:1;color:#C9F24D">9,7</div><div style="font-size:13px;color:#9AA3A6;margin-top:6px">no Google · 90 avaliações</div></div>
+      <div data-reveal="1" style="background:#0A0D0F;padding:30px 24px"><div style="font-family:Anton,sans-serif;font-size:clamp(36px,4vw,52px);line-height:1;color:#C9F24D">103h</div><div style="font-size:13px;color:#9AA3A6;margin-top:6px">de academia aberta por semana</div></div>
+    </div>
+
+    <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(28px,4vw,52px);line-height:1;margin:0 0 36px">Quem vai treinar com você</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px">
+      <div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/PROFESSORA_MUSCULACAO_CHATGPT.png" alt="Foto da Ana" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">Ana</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Musculação e funcional</div></div><div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/PROFESSOR_MUSCULACAO_CHATGPT.png" alt="Foto do João" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">João</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Musculação e periodização</div></div><div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/PROFESSOR_BOX_CHATGPT.png" alt="Foto do Felipe" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">Felipe</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Boxe e muay thai</div></div>
+      
+      
+      <div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/PROFESSOR_CROSSFIT_CHATGPT.png" alt="Foto do Pedro" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">Pedro</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Crossfit, funcional e musculação</div></div>
+    </div>
+
+    <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(28px,4vw,52px);line-height:1;margin:64px 0 36px">A OPINIÃO DOS NOSSOS ALUNOS</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px">
+      <div data-reveal="1" style="background:#0D1113;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:26px"><p style="font-size:15.5px;line-height:1.65;margin:0 0 18px;color:#D7DBDC;text-wrap:pretty">"Eu sempre fui muito inseguro comigo mesmo e tinha vergonha até de usar algumas roupas. Depois que comecei a treinar, fui percebendo mudanças não só no meu corpo, mas principalmente na minha cabeça. Hoje me sinto muito mais confiante e seguro para enfrentar situações que antes me deixavam nervoso. A academia mudou muito mais do que minha aparência."</p><div style="font-size:13.5px;font-weight:700">Lucas, 17 anos</div></div>
+      <div data-reveal="1" style="background:#0D1113;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:26px"><p style="font-size:15.5px;line-height:1.65;margin:0 0 18px;color:#D7DBDC;text-wrap:pretty">"No começo eu tinha muita vergonha de treinar na frente de outras pessoas. Achava que todo mundo estava olhando e julgando o jeito que eu fazia os exercícios. Os professores tiveram muita paciência comigo, me ensinaram cada movimento e me ajudaram a ganhar confiança. Hoje entro na academia tranquila e consigo focar no meu treino sem me preocupar com os outros."</p><div style="font-size:13.5px;font-weight:700">Beatriz, 19 anos</div></div>
+      <div data-reveal="1" style="background:#0D1113;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:26px"><p style="font-size:15.5px;line-height:1.65;margin:0 0 18px;color:#D7DBDC;text-wrap:pretty">"Eu achava que academia era coisa para gente mais jovem, mas resolvi dar uma chance. Em pouco tempo comecei a perceber que tinha mais disposição para as atividades do dia a dia e até meu humor melhorou. Hoje me sinto muito mais ativa, saudável e rejuvenescida. Foi uma das melhores decisões que tomei para mim mesma."</p><div style="font-size:13.5px;font-weight:700">Mariana, 45 anos</div></div>
+      <div data-reveal="1" style="background:#0D1113;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:26px"><p style="font-size:15.5px;line-height:1.65;margin:0 0 18px;color:#D7DBDC;text-wrap:pretty">"Eu precisava me preparar para o TAF e sabia que precisava levar os treinos a sério. Com o acompanhamento dos professores, consegui montar uma rotina focada exatamente nos exercícios que precisava melhorar. Evoluí bastante durante os treinos e consegui chegar no teste muito mais preparado e confiante. O resultado foi a aprovação no TAF."</p><div style="font-size:13.5px;font-weight:700">Rafael, policial militar</div></div>
+      <div data-reveal="1" style="background:#0D1113;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:26px"><p style="font-size:15.5px;line-height:1.65;margin:0 0 18px;color:#D7DBDC;text-wrap:pretty">"Quando comecei a academia, meu objetivo era mudar meus hábitos e me sentir melhor comigo mesma. Com dedicação aos treinos e acompanhamento dos professores, consegui eliminar 10 kg e, principalmente, ganhar mais disposição e confiança. Hoje me sinto muito melhor, mais ativa e motivada para continuar cuidando de mim. Ver minha evolução tem sido incrível!"</p><div style="font-size:13.5px;font-weight:700">Camila, 32 anos</div></div>
+    </div>
+    <div style="margin-top:22px;font-size:13.5px;color:#8E9799">Avaliações reais publicadas no Google. <a href="[INSERIR LINK GOOGLE]">Ver todas →</a></div>
+
+    <div style="margin-top:48px;display:flex;flex-wrap:wrap;align-items:center;gap:16px">
+      <a style="background:#C9F24D;color:#0A0D0F;font-weight:800;font-size:16px;padding:16px 28px;border-radius:7px;transition:background .16s ease,transform .16s ease,box-shadow .16s ease" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Quero começar agora</a>
+      <span style="font-size:14px;color:#8E9799">Aula experimental gratuita, agendada pelo WhatsApp</span>
+    </div>
+  </div>
+</section>
+
+<section id="planos" style="background:#0D1113;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08)">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9F24D;margin-bottom:16px">05 — A oferta</div>
+    <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(28px,4vw,52px);line-height:1;margin:0 0 36px">O que entra em qualquer plano</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px 32px;margin-bottom:44px">
+      <div style="display:flex;gap:12px;font-size:16px;line-height:1.5"><span style="color:#C9F24D;font-weight:800">✓</span><span>Musculação, crossfit/funcional e luta — acesso a tudo</span></div>
+      <div style="display:flex;gap:12px;font-size:16px;line-height:1.5"><span style="color:#C9F24D;font-weight:800">✓</span><span>Avaliação física completa</span></div>
+      <div style="display:flex;gap:12px;font-size:16px;line-height:1.5"><span style="color:#C9F24D;font-weight:800">✓</span><span>30 dias de acompanhamento com professor</span></div>
+      <div style="display:flex;gap:12px;font-size:16px;line-height:1.5"><span style="color:#C9F24D;font-weight:800">✓</span><span>Estacionamento próprio</span></div>
+      <div style="display:flex;gap:12px;font-size:16px;line-height:1.5"><span style="color:#C9F24D;font-weight:800">✓</span><span>Sala com ar-condicionado</span></div>
+      <div style="display:flex;gap:12px;font-size:16px;line-height:1.5"><span style="color:#C9F24D;font-weight:800">✓</span><span>Área de convivência com telão e bebidas</span></div>
+      <div style="display:flex;gap:12px;font-size:16px;line-height:1.5"><span style="color:#C9F24D;font-weight:800">✓</span><span>Livre acesso: 5h–23h (seg a sex) e 5h–18h (sáb)</span></div>
+    </div>
+
+    <div style="border-left:3px solid #F2622E;padding:4px 0 4px 22px;margin-bottom:52px;max-width:720px">
+      <div style="font-weight:800;font-size:17px;margin-bottom:8px">A conta que quase ninguém faz:</div>
+      <p style="font-size:16px;line-height:1.6;color:#B9C0C2;margin:0">Avaliação física + 30 dias acompanhado é o serviço que um personal cobra <span style="font-family: 'JetBrains Mono',monospace; font-size: 13px; color: #F2622E; padding: 2px 6px; border-radius: 4px"><u><b style="font-size: 15px">R$150,00</b></u></span> por fora. Aqui vem dentro do plano. Sem taxa, sem upgrade, sem asterisco.</p>
+    </div>
+
+    <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(28px,4vw,52px);line-height:1;margin:0 0 32px">Escolha o seu</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;align-items:stretch">
+      <div data-reveal="1" style="background: #0A0D0F; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 32px 28px; display: flex; flex-direction: column">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#8E9799;margin-bottom:18px">MENSAL</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:6px"><span style="font-family:Anton,sans-serif;font-size:46px;line-height:1">R$ 129,99</span></div>
+        <div style="font-size:14px;color:#8E9799;margin-bottom:20px">por mês · R$ 4,33 por dia</div>
+        <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0 0 26px">Pra quem quer testar sem prazo.</p><a style="display: block; text-align: center; border: 1px solid rgba(255,255,255,0.25); color: #F2F4F3; font-weight: 700; font-size: 15px; padding: 14px; border-radius: 7px; margin-top: auto; border-color: #C9F24D; transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease" style-hover="transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Quero o Mensal</a>
+        
+      </div>
+      <div data-reveal="1" style="background:#101613;border:1px solid #C9F24D;border-radius:12px;padding:32px 28px;position:relative;display:flex;flex-direction:column">
+        <div style="position:absolute;top:-12px;left:28px;background:#C9F24D;color:#0A0D0F;font-size:11px;font-weight:800;letter-spacing:0.1em;padding:5px 10px;border-radius:4px;text-transform:uppercase">Mais escolhido</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#C9F24D;margin-bottom:18px">TRIMESTRAL</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:6px"><span style="font-family:Anton,sans-serif;font-size:46px;line-height:1">R$ 99,99</span></div>
+        <div style="font-size:14px;color:#B9C0C2;margin-bottom:20px">por mês · R$ 299,97 no trimestre<br><span style="color:#C9F24D;font-weight:700">Economia de R$ 90</span></div>
+        <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0 0 26px">Três meses é o tempo em que o treino vira hábito e o espelho começa a responder.</p>
+        <a style="display:block;text-align:center;background:#C9F24D;color:#0A0D0F;font-weight:800;font-size:15px;padding:14px;border-radius:7px;margin-top:auto;transition:background .16s ease,transform .16s ease,box-shadow .16s ease" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Quero o Trimestral</a>
+      </div>
+      <div data-reveal="1" style="background:#0A0D0F;border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:32px 28px;display:flex;flex-direction:column">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#8E9799;margin-bottom:18px">ANUAL</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:6px"><span style="font-family:Anton,sans-serif;font-size:46px;line-height:1">R$ 89,99</span></div>
+        <div style="font-size:14px;color:#B9C0C2;margin-bottom:20px">por mês · R$ 3,00 por dia<br><span style="color:#C9F24D;font-weight:700">Economia de R$ 480 no ano</span></div>
+        <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0 0 26px">O menor valor por mês. Pra quem já decidiu que isso não é fase.</p>
+        <a class="btn-outline" style="display: block; text-align: center; border: 1px solid rgba(255,255,255,0.25); color: #F2F4F3; font-weight: 700; font-size: 15px; padding: 14px; border-radius: 7px; margin-top: auto; border-color: #C9F24D; transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease" style-hover="transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Quero o Anual</a>
+      </div>
+    </div>
+
+    <div style="margin-top:52px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:36px">
+      <div>
+        <div style="font-family:Anton,sans-serif;font-size:clamp(38px,5vw,64px);line-height:1;color:#C9F24D;margin-bottom:14px">R$ 480,00</div>
+        <p style="font-size:16.5px;line-height:1.6;color:#B9C0C2;margin:0;text-wrap:pretty">É o que você joga fora pagando mensal durante um ano inteiro. No anual, o dia de academia sai por R$ 3. Menos que o lanche da esquina — e o lanche não te devolve sono bom, disposição e uma calça que serve.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center">
+        <p style="font-size:16.5px;line-height:1.6;margin:0;text-wrap:pretty">O que custa continuar como está: mais um ano dizendo que segunda você começa. Mais um ano evitando foto. E o corpo aos 41 sendo mais teimoso de mudar do que aos 40.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:44px;display:flex;flex-wrap:wrap;align-items:center;gap:16px">
+      <a style="background:#C9F24D;color:#0A0D0F;font-weight:800;font-size:16px;padding:16px 28px;border-radius:7px;transition:background .16s ease,transform .16s ease,box-shadow .16s ease" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Quero conhecer a academia</a>
+      <span style="font-size:14px;color:#8E9799">Agende sua aula experimental gratuita pelo WhatsApp</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#8E9799;margin-bottom:16px">06 — O que trava você</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-top:32px">
+      <div data-reveal="1" style="border-top:1px solid rgba(255,255,255,0.14);padding-top:22px">
+        <h3 style="font-family:Anton,sans-serif;font-weight:400;font-size:22px;line-height:1.15;margin:0 0 12px;color:#F2F4F3">"Mas eu não tenho horário pra encaixar treino."</h3>
+        <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0;text-wrap:pretty">Foi por isso que abrimos às 5h e fechamos às 23h. São 18 horas de academia aberta por dia útil — se você trabalha em horário comercial, sobram pelo menos 8 horas de janela. Uma hora, três vezes por semana, já muda seu corpo. Na avaliação a gente monta um treino do tamanho do tempo que você realmente tem, não do tempo ideal que ninguém tem.</p>
+      </div>
+      <div data-reveal="1" style="border-top:1px solid rgba(255,255,255,0.14);padding-top:22px">
+        <h3 style="font-family:Anton,sans-serif;font-weight:400;font-size:22px;line-height:1.15;margin:0 0 12px;color:#F2F4F3">"Mas não sei se vou usar o suficiente pra valer o preço."</h3>
+        <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0;text-wrap:pretty">Por isso existem três planos. Quer testar sem prazo? Mensal. Já sabe que vem? Trimestral ou anual, pagando bem menos por mês. E antes de qualquer um deles, você treina de graça na aula experimental. Ninguém aqui assina plano sem antes pisar na sala.</p>
+      </div>
+      <div data-reveal="1" style="border-top:1px solid rgba(255,255,255,0.14);padding-top:22px">
+        <h3 style="font-family:Anton,sans-serif;font-weight:400;font-size:22px;line-height:1.15;margin:0 0 12px;color:#F2F4F3">"Mas eu vou pagar vergonha na frente de todo mundo."</h3>
+        <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0;text-wrap:pretty">Verdade dura: ninguém está olhando pra você. Todo mundo está contando repetição e encarando o próprio espelho. E mesmo assim a gente não te deixa na mão — nos primeiros 30 dias tem professor do seu lado mostrando cada aparelho. Os 300 alunos daqui entraram no dia 1 exatamente como você vai entrar.</p>
+      </div>
+      <div data-reveal="1" style="border-top:1px solid rgba(255,255,255,0.14);padding-top:22px">
+        <h3 style="font-family:Anton,sans-serif;font-weight:400;font-size:22px;line-height:1.15;margin:0 0 12px;color:#F2F4F3">"Mas eu já tentei e parei."</h3>
+        <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0;text-wrap:pretty">Você não parou por preguiça. Parou porque sumiu e ninguém percebeu. Aqui o professor do primeiro mês sabe seu nome e cobra sua falta. Parece pouco. É o que separa quem fica de quem some.</p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section style="background:#0D1113;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08)">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,4vw,56px)">
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9F24D;margin-bottom:16px">07 — Garantia</div>
+      <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(30px,4.4vw,56px);line-height:0.98;margin:0 0 20px">Você testa antes de decidir</h2>
+      <p style="font-size:17px;line-height:1.6;color:#B9C0C2;margin:0">Nenhuma academia devia pedir seu dinheiro antes de você pisar na sala.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;gap:14px"><span style="color:#C9F24D;font-weight:800">✓</span><p style="margin:0;font-size:16px;line-height:1.6"><strong>Aula experimental gratuita.</strong> <span style="color:#A8B0B2">Treino completo, sem pagar e sem assinar nada.</span></p></div>
+      <div style="display:flex;gap:14px"><span style="color:#C9F24D;font-weight:800">✓</span><p style="margin:0;font-size:16px;line-height:1.6"><strong>Avaliação física antes do plano.</strong> <span style="color:#A8B0B2">Você já sai sabendo o que precisa fazer.</span></p></div>
+      <div style="display:flex;gap:14px"><span style="color:#C9F24D;font-weight:800">✓</span><p style="margin:0;font-size:16px;line-height:1.6"><strong>30 dias acompanhado.</strong> <span style="color:#A8B0B2">Se você não souber usar um aparelho, o problema é nosso.</span></p></div>
+      <div style="display:flex;gap:14px"><span style="color:#C9F24D;font-weight:800">✓</span><p style="margin:0;font-size:16px;line-height:1.6"><strong>Preço sem pegadinha.</strong> <span style="color:#A8B0B2">O valor da página é o valor do balcão.</span> </p></div>
+      <sc-if value="{{ garantia7 }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:14px;background:#0A0D0F;border:1px solid #C9F24D;border-radius:8px;padding:18px"><span style="color:#C9F24D;font-weight:800">✓</span><p style="margin:0;font-size:16px;line-height:1.6"><strong>7 dias de garantia.</strong> <span style="color:#A8B0B2">Treinou uma semana e não era o que você esperava? Devolvemos sua mensalidade.</span></p></div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,88px) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,4vw,56px);align-items:center">
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#F2622E;margin-bottom:16px">08 — Agenda</div>
+      <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(30px,4.4vw,56px);line-height:0.98;margin:0 0 20px">A agenda de avaliação é limitada</h2>
+      <p style="font-size:16.5px;line-height:1.65;color:#B9C0C2;margin:0 0 14px;text-wrap:pretty">A avaliação física é individual e feita por professor, um aluno de cada vez. Por isso o número de horários por semana é limitado.</p>
+      <p style="font-size:17px;line-height:1.55;margin:0;font-weight:700">Quem agenda hoje treina esta semana. Quem deixa pra depois entra na fila da próxima.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:12px">
+      <a style="background:#C9F24D;color:#0A0D0F;font-weight:800;font-size:17px;padding:18px 32px;border-radius:7px;transition:background .16s ease,transform .16s ease,box-shadow .16s ease" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Garantir meu horário</a>
+      <span style="font-size:14px;color:#8E9799">Escolha o melhor dia e horário pelo WhatsApp</span>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:#0D1113;border-top:1px solid rgba(255,255,255,0.08)">
+  <div style="max-width:900px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
+    <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(28px,4vw,52px);line-height:1;margin:0 0 36px">Dúvidas</h2>
+    <details style="border-top:1px solid rgba(255,255,255,0.12)">
+      <summary style="display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;font-size:17.5px;font-weight:700"><span>Nunca treinei na vida. Vou conseguir acompanhar?</span><span class="faq-plus" style="color:#C9F24D;font-size:22px;transition:transform 0.2s;flex:none">+</span></summary>
+      <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0 0 22px;max-width:680px">Vai. É exatamente pra isso que existem os 30 dias acompanhados. Seu treino sai da sua avaliação física, não do que o cara ao lado levanta.</p>
+    </details>
+    <details style="border-top:1px solid rgba(255,255,255,0.12)">
+      <summary style="display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;font-size:17.5px;font-weight:700"><span>Quanto tempo por dia eu preciso?</span><span class="faq-plus" style="color:#C9F24D;font-size:22px;transition:transform 0.2s;flex:none">+</span></summary>
+      <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0 0 22px;max-width:680px">De 45 minutos a 1 hora, 3 a 5 vezes por semana. Com a academia aberta das 5h às 23h, dá pra encaixar antes do trabalho, no intervalo ou à noite.</p>
+    </details>
+    <details style="border-top:1px solid rgba(255,255,255,0.12)">
+      <summary style="display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;font-size:17.5px;font-weight:700"><span>Posso fazer musculação, crossfit e luta no mesmo plano?</span><span class="faq-plus" style="color:#C9F24D;font-size:22px;transition:transform 0.2s;flex:none">+</span></summary>
+      <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0 0 22px;max-width:680px">Pode. O plano dá acesso às três modalidades, sem valor adicional.</p>
+    </details>
+    <details style="border-top:1px solid rgba(255,255,255,0.12)">
+      <summary style="display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;font-size:17.5px;font-weight:700"><span>Em quanto tempo eu vejo resultado?</span><span class="faq-plus" style="color:#C9F24D;font-size:22px;transition:transform 0.2s;flex:none">+</span></summary>
+      <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0 0 22px;max-width:680px">Disposição e sono melhoram nas primeiras semanas. Mudança visível no espelho costuma aparecer entre 8 e 12 semanas de treino constante. Constância pesa mais que intensidade.</p>
+    </details>
+    <details style="border-top:1px solid rgba(255,255,255,0.12)">
+      <summary style="display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;font-size:17.5px;font-weight:700"><span>Tenho mais de 40 anos / tenho uma lesão antiga. Posso treinar?</span><span class="faq-plus" style="color:#C9F24D;font-size:22px;transition:transform 0.2s;flex:none">+</span></summary>
+      <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0 0 22px;max-width:680px">Pode, e a avaliação física existe pra isso. O professor adapta os exercícios ao seu histórico. </p>
+    </details>
+    <details style="border-top:1px solid rgba(255,255,255,0.12)">
+      <summary style="display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;font-size:17.5px;font-weight:700"><span>Quais as formas de pagamento?</span><span class="faq-plus" style="color:#C9F24D;font-size:22px;transition:transform 0.2s;flex:none">+</span></summary>
+      <p style="font-family: 'JetBrains Mono',monospace; font-size: 13.5px; line-height: 1.7; color: #8E9799; padding: 0; margin: 0 0 22px; max-width: 680px; position: static">PIX, Dinheiro, Cartão Debito e Credito</p>
+    </details>
+    <details style="border-top:1px solid rgba(255,255,255,0.12)">
+      <summary style="display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;font-size:17.5px;font-weight:700"><span>A aula experimental é grátis mesmo?</span><span class="faq-plus" style="color:#C9F24D;font-size:22px;transition:transform 0.2s;flex:none">+</span></summary>
+      <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0 0 22px;max-width:680px">É. Você agenda pelo WhatsApp, vem treinar e decide depois. Sem cadastro de cartão, sem compromisso.</p>
+    </details>
+    <details style="border-top:1px solid rgba(255,255,255,0.12);border-bottom:1px solid rgba(255,255,255,0.12)">
+      <summary style="display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;font-size:17.5px;font-weight:700"><span>Onde vocês ficam e tem estacionamento?</span><span class="faq-plus" style="color:#C9F24D;font-size:22px;transition:transform 0.2s;flex:none">+</span></summary>
+      <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0 0 22px;max-width:680px">Rua Teste, 000, Centro de Terra Boa. Temos estacionamento próprio.</p>
+    </details>
+  </div>
+</section>
+
+<section style="border-top:1px solid rgba(255,255,255,0.08);background:#0A0D0F">
+  <div style="max-width:900px;margin:0 auto;padding:clamp(64px,8vw,120px) 24px;text-align:center">
+    <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(34px,5.6vw,74px);line-height:0.96;margin:0 0 28px">Daqui a três meses você vai estar em algum lugar</h2>
+    <p style="font-size:17px;line-height:1.65;color:#B9C0C2;margin:0 0 16px;text-wrap:pretty">Pode ser no mesmo sofá, com a mesma calça apertada, repetindo que segunda-feira você começa.</p>
+    <p style="font-size:17px;line-height:1.65;color:#B9C0C2;margin:0 0 30px;text-wrap:pretty">Ou pode ser aqui, terminando a última série, cansado do jeito bom, sabendo exatamente o que vai treinar amanhã.</p>
+    <p style="font-family:Anton,sans-serif;text-transform:uppercase;font-size:clamp(22px,3vw,38px);line-height:1.1;margin:0 0 24px;color:#F2622E">Ninguém vira lâmina esperando.<br>Vira debaixo do martelo.</p>
+    <p style="font-size:17px;line-height:1.6;margin:0 0 36px">A distância entre esses dois cenários é uma mensagem no WhatsApp.</p>
+    <a style="display:inline-block;background:#C9F24D;color:#0A0D0F;font-weight:800;font-size:18px;padding:20px 40px;border-radius:8px;transition:background .16s ease,transform .16s ease,box-shadow .16s ease" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.5)">Agendar minha aula grátis</a>
+    <div style="font-size:14px;color:#8E9799;margin-top:14px">Aula experimental + avaliação física • Sem compromisso</div>
+  </div>
+</section>
+
+<section style="background:#0D1113;border-top:1px solid rgba(255,255,255,0.08)">
+  <div style="max-width:900px;margin:0 auto;padding:clamp(40px,5vw,64px) 24px">
+    <p style="font-size:16px;line-height:1.7;color:#B9C0C2;margin:0 0 16px;text-wrap:pretty"><strong style="color:#F2F4F3">PS.</strong> A aula experimental é gratuita. A avaliação física também. Você não precisa decidir nada hoje — só aparecer, treinar uma vez e sentir como é ter alguém do seu lado dizendo o que fazer.</p>
+    <p style="font-size:16px;line-height:1.7;color:#B9C0C2;margin:0;text-wrap:pretty">Se depois disso não for pra você, tudo bem. Mas você vai ter tirado a dúvida, em vez de carregar ela por mais um ano.</p>
+  </div>
+</section>
+
+<footer style="background:#0A0D0F;border-top:1px solid rgba(255,255,255,0.08)">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(40px,5vw,64px) 24px 100px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px">
+    <div>
+      <div style="font-family:Anton,sans-serif;font-size:26px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px">Forja Fitness</div>
+      <div style="font-size:14.5px;color:#8E9799;line-height:1.7">Rua Teste, 000,<br>Centro de Terra Boa — PR<br></div>
+    </div>
+    <div>
+      <div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#8E9799;margin-bottom:12px">Horários</div>
+      <div style="font-size:15px;line-height:1.8;color:#D7DBDC">Seg a sex — 5h às 23h<br>Sábado — 5h às 18h</div>
+    </div>
+    <div>
+      <div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#8E9799;margin-bottom:12px">Contato</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:15px">
+        <a>WhatsApp</a>
+        <a href="[INSERIR INSTAGRAM]">Instagram</a>
+        <a href="[INSERIR FACEBOOK]">Facebook</a>
+        <a href="[INSERIR LINK GOOGLE MAPS]">Como chegar</a>
+      </div>
+    </div>
+    <div style="min-width:0">
+      <div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#8E9799;margin-bottom:12px">Onde ficamos</div>
+      <div style="aspect-ratio:16/10;border:1px dashed rgba(255,255,255,0.22);border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#8E9799">MAPA INCORPORADO<br>Google Maps embed</div>
+    </div>
+  </div>
+</footer>
+
+<a style="position:fixed;right:18px;bottom:18px;z-index:60;background:#C9F24D;color:#0A0D0F;font-weight:800;font-size:15px;padding:15px 22px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,0.5);transition:background .16s ease,transform .16s ease,box-shadow .16s ease" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,0.55)">Agendar no WhatsApp</a>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;garantia7&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Blocos opcionais&quot;}}">
+class Component extends DCLogic {
+  state = { menu: false };
+  componentDidMount() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const els = Array.from(document.querySelectorAll("[data-reveal]"));
+    const counts = new Map();
+    els.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(26px)";
+      el.style.transition = "opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1)";
+      el.style.willChange = "opacity, transform";
+      const p = el.parentElement;
+      const n = counts.get(p) || 0;
+      counts.set(p, n + 1);
+      el.dataset.revIndex = String(n);
+    });
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const d = Math.min(Number(e.target.dataset.revIndex || 0) * 80, 320);
+        setTimeout(() => {
+          e.target.style.opacity = "1";
+          e.target.style.transform = "none";
+          e.target.style.willChange = "auto";
+        }, d);
+        this._io.unobserve(e.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    els.forEach((el) => this._io.observe(el));
+
+    const par = Array.from(document.querySelectorAll("[data-parallax]"));
+    let raf = 0;
+    this._onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        par.forEach((el) => {
+          const r = el.getBoundingClientRect();
+          const c = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+          const k = Number(el.dataset.parallax || 0.05);
+          el.style.transform = "translate3d(0," + (-c * k * 100).toFixed(2) + "px,0)";
+        });
+      });
+    };
+    this._onScroll();
+    addEventListener("scroll", this._onScroll, { passive: true });
+    addEventListener("resize", this._onScroll);
+  }
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    if (this._onScroll) {
+      removeEventListener("scroll", this._onScroll);
+      removeEventListener("resize", this._onScroll);
+    }
+  }
+  renderVals() {
+    return {
+      menuAberto: this.state.menu,
+      alternarMenu: () => this.setState((s) => ({ menu: !s.menu })),
+      fecharMenu: () => this.setState({ menu: false }),
+      garantia7: this.props.garantia7 ?? false
+    };
+  }
+}
+</script>
+</body>
+</html>
