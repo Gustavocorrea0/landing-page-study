@@ -9,16 +9,20 @@
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Academia em Terra Boa | Musculação, Crossfit e Luta — Forja Fitness</title>
+<title>Academia em Sua Cidade | Musculação, Crossfit e Luta — Forja Fitness</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 
 <style>
-  body { margin: 0; background: #0A0D0F; color: #F2F4F3; font-family: Manrope, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: #0A0D0F; color: #F2F4F3; font-family: Manrope, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   * { box-sizing: border-box; }
-  html { scrollbar-width: none; -ms-overflow-style: none; }
-  html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; display: none; }
+  html { scrollbar-width: thin; scrollbar-color: #C9F24D #0A0D0F; }
+  html::-webkit-scrollbar, body::-webkit-scrollbar { width: 12px; height: 12px; }
+  html::-webkit-scrollbar:hover, body::-webkit-scrollbar:hover { width: 16px; height: 16px; }
+  html::-webkit-scrollbar-track, body::-webkit-scrollbar-track { background: #0A0D0F; }
+  html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb { background: #C9F24D; border-radius: 8px; border: 3px solid #0A0D0F; }
+  html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover { background: #F2F4F3; border-width: 2px; }
   a { color: #C9F24D; text-decoration: none; }
   @keyframes forjaRevealImg { 0% { clip-path: inset(0 100% 0 0); } 100% { clip-path: inset(0 0 0 0); } }
   @keyframes forjaRevealWipe { 0% { transform: translateX(-101%); } 45% { transform: translateX(0); } 100% { transform: translateX(101%); } }
@@ -44,18 +48,24 @@
     .nav-links { display: none !important; }
     .nav-cta { display: none !important; }
     .nav-burger { display: flex !important; }
+    .hero-cta-row { justify-content: center; }
+    .hero-cta-btn { width: 90%; text-align: center; }
   }
 </style>
 </helmet>
 
-<div style="max-width:100%;overflow-x:hidden">
+<div style="max-width:100%">
+
+<div style="background:#F2622E;color:#0A0D0F;text-align:center;padding:10px 16px;font-size:13.5px;font-weight:700;line-height:1.4">
+  Página fictícia criada apenas para fins de teste e demonstração. Nenhuma informação é real — nome, endereço, depoimentos, preços e contatos são inventados. Todas as imagens de pessoas foram geradas por Inteligência Artificial.
+</div>
 
 <header style="position:sticky;top:0;z-index:50;background:rgba(10,13,15,0.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.08)">
   <div style="max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px">
-    <div style="display:flex;align-items:baseline;gap:10px">
-      <span style="font-family:Anton,sans-serif;font-size:22px;letter-spacing:0.04em;text-transform:uppercase">Forja</span>
+    <a href="#" style="display:flex;align-items:baseline;gap:10px;color:inherit">
+      <span style="font-family:Anton,sans-serif;font-size:22px;letter-spacing:0.04em;text-transform:uppercase;color:#F2F4F3">Forja</span>
       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.22em;color:#8E9799;text-transform:uppercase">Fitness</span>
-    </div>
+    </a>
     <nav class="nav-links" style="display:flex;gap:26px;font-size:13.5px;font-weight:600;color:#B9C0C2">
       <a href="#metodo" style="color:#B9C0C2">Primeiro mês</a>
       <a href="#modalidades" style="color:#B9C0C2">Modalidades</a>
@@ -85,12 +95,12 @@
 <section style="position:relative;padding:0">
   <div style="max-width:1180px;margin:0 auto;padding:clamp(40px,6vw,84px) 24px clamp(36px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(28px,4vw,56px);align-items:center">
     <div style="min-width:0">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9F24D;margin-bottom:20px">Academia no centro de Terra Boa</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#C9F24D;margin-bottom:20px">Academia no centro de Sua Cidade</div>
       <h1 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(40px,6.4vw,82px);line-height:0.92;letter-spacing:-0.01em;margin:0 0 22px">Seus 30 primeiros dias com <span style="color:#C9F24D">professor junto</span></h1>
-      <p style="font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:#B9C0C2;margin:0 0 30px;max-width:520px;text-wrap:pretty">Musculação, Crossfit e Luta no centro de Terra Boa.<br>Sua aula experimental é gratuita.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px">
-        <a style="color: #0A0D0F; font-weight: 800; font-size: 16px; padding: 16px 28px; border-radius: 7px; transition: background .16s ease,transform .16s ease,box-shadow .16s ease; background-color: #C9F24D" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Agendar aula grátis</a>
-        <a href="#metodo" class="btn-outline" style="border: 1px solid rgba(255,255,255,0.22); color: #F2F4F3; font-weight: 700; font-size: 16px; padding: 16px 26px; border-radius: 7px; border-color: #C9F24D; transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease" style-hover="transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Como funciona</a>
+      <p style="font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:#B9C0C2;margin:0 0 30px;max-width:520px;text-wrap:pretty">Musculação, Crossfit e Luta no centro de Sua Cidade.<br>Sua aula experimental é gratuita.</p>
+      <div class="hero-cta-row" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px">
+        <a class="hero-cta-btn" style="color: #0A0D0F; font-weight: 800; font-size: 16px; padding: 16px 28px; border-radius: 7px; transition: background .16s ease,transform .16s ease,box-shadow .16s ease; background-color: #C9F24D" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Agendar aula grátis</a>
+        <a href="#metodo" class="btn-outline hero-cta-btn" style="border: 1px solid rgba(255,255,255,0.22); color: #F2F4F3; font-weight: 700; font-size: 16px; padding: 16px 26px; border-radius: 7px; border-color: #C9F24D; transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease" style-hover="transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Como funciona</a>
       </div>
       <div style="font-size:13px;color:#8E9799;margin-bottom:26px">Resposta pelo WhatsApp • Sem compromisso • 300 alunos treinando</div>
       <div style="display:flex;flex-wrap:wrap;gap:32px;padding-top:26px;border-top:1px solid rgba(255,255,255,0.1)">
@@ -178,21 +188,21 @@
     <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(32px,4.6vw,60px);line-height:0.98;margin:0 0 44px">Três formas de treinar. <span style="color:#C9F24D">Um plano só.</span></h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
       <div class="zoomcard" data-reveal="1" style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;background:#0D1113">
-        <div style="aspect-ratio:4/3;position:relative;overflow:hidden"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/MUSCULACAO.jpg" alt="Sala de musculação" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:20px;background:linear-gradient(180deg,rgba(10,13,15,0) 35%,rgba(10,13,15,0.92) 100%);pointer-events:none"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9F24D">EQUIPAMENTOS DE ALTA QUALIDADE · TREINO PERIODIZADO</span><span style="font-size:13.5px;color:#D7DBDC">Seg a sex 5h–23h · sáb 5h–18h</span></div></div>
+        <div style="aspect-ratio:4/3;position:relative;overflow:hidden"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/musculacao.jpg" alt="Sala de musculação" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:20px;background:linear-gradient(180deg,rgba(10,13,15,0) 35%,rgba(10,13,15,0.92) 100%);pointer-events:none"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9F24D">EQUIPAMENTOS DE ALTA QUALIDADE · TREINO PERIODIZADO</span><span style="font-size:13.5px;color:#D7DBDC">Seg a sex 5h–23h · sáb 5h–18h</span></div></div>
         <div style="padding:26px 24px">
           <h3 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;margin:0 0 12px">Musculação</h3>
           <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Sala completa, ar-condicionado e treino periodizado. Pra quem quer hipertrofia com progressão de carga séria, não circuito de revista.</p>
         </div>
       </div>
       <div class="zoomcard" data-reveal="1" style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;background:#0D1113">
-        <div style="aspect-ratio:4/3;position:relative;overflow:hidden"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/CROSSFIT.jpg" alt="Box de crossfit / funcional" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:20px;background:linear-gradient(180deg,rgba(10,13,15,0) 35%,rgba(10,13,15,0.92) 100%);pointer-events:none"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9F24D">Sessões de 40 minutos · alta intensidade</span><span style="font-size:13.5px;color:#D7DBDC">Seg a sex 5h–23h · sáb 5h–18h</span></div></div>
+        <div style="aspect-ratio:4/3;position:relative;overflow:hidden"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/crossfit.jpg" alt="Box de crossfit / funcional" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:20px;background:linear-gradient(180deg,rgba(10,13,15,0) 35%,rgba(10,13,15,0.92) 100%);pointer-events:none"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9F24D">Sessões de 40 minutos · alta intensidade</span><span style="font-size:13.5px;color:#D7DBDC">Seg a sex 5h–23h · sáb 5h–18h</span></div></div>
         <div style="padding:26px 24px">
           <h3 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;margin:0 0 12px">Crossfit / Funcional</h3>
           <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Alta intensidade, movimento composto, treino que acaba com você em 40 minutos. Pra quem gosta de sair da sessão sem conseguir falar direito.</p>
         </div>
       </div>
       <div class="zoomcard" data-reveal="1" style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;background:#0D1113">
-        <div style="aspect-ratio:4/3;position:relative;overflow:hidden"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/BOXE.jpg" alt="Sala de luta / boxe" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:20px;background:linear-gradient(180deg,rgba(10,13,15,0) 35%,rgba(10,13,15,0.92) 100%);pointer-events:none"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9F24D">BOXE E MUAY THAI</span><span style="font-size:13.5px;color:#D7DBDC">Seg a sex 5h–23h · sáb 5h–18h</span></div></div>
+        <div style="aspect-ratio:4/3;position:relative;overflow:hidden"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/boxe.jpg" alt="Sala de luta / boxe" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:20px;background:linear-gradient(180deg,rgba(10,13,15,0) 35%,rgba(10,13,15,0.92) 100%);pointer-events:none"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#C9F24D">BOXE E MUAY THAI</span><span style="font-size:13.5px;color:#D7DBDC">Seg a sex 5h–23h · sáb 5h–18h</span></div></div>
         <div style="padding:26px 24px">
           <h3 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;margin:0 0 12px">Luta</h3>
           <p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Técnica, condicionamento e cabeça. Pra quem quer aprender a se defender e queimar o dia junto.</p>
@@ -215,7 +225,7 @@
       <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você para de treinar errado.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Execução corrigida desde o primeiro dia: resultado mais rápido e menos chance de lesão.</p></div>
       <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você escolhe como quer suar.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Musculação, crossfit ou luta no mesmo plano.</p></div>
       <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você chega e estaciona.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Estacionamento próprio. Ninguém aqui perde o treino procurando vaga.</p></div>
-      <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você treina sem derreter.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Ar-condicionado na sala inteira. Verão de Terra Boa não é desculpa.</p></div>
+      <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você treina sem derreter.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Ar-condicionado na sala inteira. Verão de Sua Cidade não é desculpa.</p></div>
       <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Você nunca treina sozinho de verdade.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">São 300 pessoas passando por aqui. Sempre tem gente no seu horário puxando junto.</p></div>
       <div data-reveal="1" style="border-top:2px solid #C9F24D;padding-top:16px"><h3 style="font-size:18px;font-weight:800;margin:0 0 8px">Depois do treino, você fica.</h3><p style="font-size:15.5px;line-height:1.6;color:#A8B0B2;margin:0">Telão com os jogos e bebida gelada. A academia vira o lugar onde você quer estar, não onde você tem que ir.</p></div>
     </div>
@@ -226,17 +236,17 @@
   <div style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.08);margin-bottom:64px">
       <div data-reveal="1" style="background:#0A0D0F;padding:30px 24px"><div style="font-family:Anton,sans-serif;font-size:clamp(36px,4vw,52px);line-height:1;color:#C9F24D">300</div><div style="font-size:13px;color:#9AA3A6;margin-top:6px">alunos treinando</div></div>
-      <div data-reveal="1" style="background:#0A0D0F;padding:30px 24px"><div style="font-family:Anton,sans-serif;font-size:clamp(36px,4vw,52px);line-height:1;color:#C9F24D">2</div><div style="font-size:13px;color:#9AA3A6;margin-top:6px">anos no centro de Terra Boa</div></div>
+      <div data-reveal="1" style="background:#0A0D0F;padding:30px 24px"><div style="font-family:Anton,sans-serif;font-size:clamp(36px,4vw,52px);line-height:1;color:#C9F24D">2</div><div style="font-size:13px;color:#9AA3A6;margin-top:6px">anos no centro de Sua Cidade</div></div>
       <div data-reveal="1" style="background:#0A0D0F;padding:30px 24px"><div style="font-family:Anton,sans-serif;font-size:clamp(36px,4vw,52px);line-height:1;color:#C9F24D">9,7</div><div style="font-size:13px;color:#9AA3A6;margin-top:6px">no Google · 90 avaliações</div></div>
       <div data-reveal="1" style="background:#0A0D0F;padding:30px 24px"><div style="font-family:Anton,sans-serif;font-size:clamp(36px,4vw,52px);line-height:1;color:#C9F24D">103h</div><div style="font-size:13px;color:#9AA3A6;margin-top:6px">de academia aberta por semana</div></div>
     </div>
 
     <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(28px,4vw,52px);line-height:1;margin:0 0 36px">Quem vai treinar com você</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px">
-      <div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/PROFESSORA_MUSCULACAO_CHATGPT.png" alt="Foto da Ana" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">Ana</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Musculação e funcional</div></div><div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/PROFESSOR_MUSCULACAO_CHATGPT.png" alt="Foto do João" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">João</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Musculação e periodização</div></div><div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/PROFESSOR_BOX_CHATGPT.png" alt="Foto do Felipe" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">Felipe</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Boxe e muay thai</div></div>
+      <div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/professora_musculacao_chatgpt.png" alt="Foto da Ana" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">Ana</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Musculação e funcional</div></div><div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/professor_musculacao_chatgpt.png" alt="Foto do João" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">João</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Musculação e periodização</div></div><div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/professor_box_chatgpt.png" alt="Foto do Felipe" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">Felipe</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Boxe e muay thai</div></div>
       
       
-      <div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/PROFESSOR_CROSSFIT_CHATGPT.png" alt="Foto do Pedro" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">Pedro</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Crossfit, funcional e musculação</div></div>
+      <div data-reveal="1"><div class="zoomcard" style="aspect-ratio:3/4;margin-bottom:14px;position:relative;overflow:hidden;border-radius:10px"><div class="zoomimg" style="position:absolute;inset:0"><img src="img/professor_crossfit_chatgpt.png" alt="Foto do Pedro" style="width:100%;height:100%;object-fit:cover;display:block"></div><div class="veil" style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(180deg,rgba(10,13,15,0) 40%,rgba(10,13,15,0.92) 100%);pointer-events:none"></div></div><h3 style="font-size:19px;font-weight:800;margin:0 0 4px">Pedro</h3><div style="font-size:14px;color:#C9F24D;margin-bottom:6px">Crossfit, funcional e musculação</div></div>
     </div>
 
     <h2 style="font-family:Anton,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(28px,4vw,52px);line-height:1;margin:64px 0 36px">A OPINIÃO DOS NOSSOS ALUNOS</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px">
@@ -246,7 +256,7 @@
       <div data-reveal="1" style="background:#0D1113;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:26px"><p style="font-size:15.5px;line-height:1.65;margin:0 0 18px;color:#D7DBDC;text-wrap:pretty">"Eu precisava me preparar para o TAF e sabia que precisava levar os treinos a sério. Com o acompanhamento dos professores, consegui montar uma rotina focada exatamente nos exercícios que precisava melhorar. Evoluí bastante durante os treinos e consegui chegar no teste muito mais preparado e confiante. O resultado foi a aprovação no TAF."</p><div style="font-size:13.5px;font-weight:700">Rafael, policial militar</div></div>
       <div data-reveal="1" style="background:#0D1113;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:26px"><p style="font-size:15.5px;line-height:1.65;margin:0 0 18px;color:#D7DBDC;text-wrap:pretty">"Quando comecei a academia, meu objetivo era mudar meus hábitos e me sentir melhor comigo mesma. Com dedicação aos treinos e acompanhamento dos professores, consegui eliminar 10 kg e, principalmente, ganhar mais disposição e confiança. Hoje me sinto muito melhor, mais ativa e motivada para continuar cuidando de mim. Ver minha evolução tem sido incrível!"</p><div style="font-size:13.5px;font-weight:700">Camila, 32 anos</div></div>
     </div>
-    <div style="margin-top:22px;font-size:13.5px;color:#8E9799">Avaliações reais publicadas no Google. <a href="[INSERIR LINK GOOGLE]">Ver todas →</a></div>
+    <div style="margin-top:22px;font-size:13.5px;color:#8E9799">Avaliações reais publicadas no Google. <a href="">Ver todas →</a></div>
 
     <div style="margin-top:48px;display:flex;flex-wrap:wrap;align-items:center;gap:16px">
       <a style="background:#C9F24D;color:#0A0D0F;font-weight:800;font-size:16px;padding:16px 28px;border-radius:7px;transition:background .16s ease,transform .16s ease,box-shadow .16s ease" style-hover="background:#DBFF7A;transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,0.45)">Quero começar agora</a>
@@ -409,7 +419,7 @@
     </details>
     <details style="border-top:1px solid rgba(255,255,255,0.12);border-bottom:1px solid rgba(255,255,255,0.12)">
       <summary style="display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;font-size:17.5px;font-weight:700"><span>Onde vocês ficam e tem estacionamento?</span><span class="faq-plus" style="color:#C9F24D;font-size:22px;transition:transform 0.2s;flex:none">+</span></summary>
-      <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0 0 22px;max-width:680px">Rua Teste, 000, Centro de Terra Boa. Temos estacionamento próprio.</p>
+      <p style="font-size:15.5px;line-height:1.65;color:#A8B0B2;margin:0 0 22px;max-width:680px">Rua Teste, 000, Centro de Sua Cidade. Temos estacionamento próprio.</p>
     </details>
   </div>
 </section>
@@ -437,7 +447,7 @@
   <div style="max-width:1180px;margin:0 auto;padding:clamp(40px,5vw,64px) 24px 100px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px">
     <div>
       <div style="font-family:Anton,sans-serif;font-size:26px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px">Forja Fitness</div>
-      <div style="font-size:14.5px;color:#8E9799;line-height:1.7">Rua Teste, 000,<br>Centro de Terra Boa — PR<br></div>
+      <div style="font-size:14.5px;color:#8E9799;line-height:1.7">Rua Teste, 000,<br>Centro de Sua Cidade — PR<br></div>
     </div>
     <div>
       <div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#8E9799;margin-bottom:12px">Horários</div>

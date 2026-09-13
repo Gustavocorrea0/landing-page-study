@@ -6,59 +6,40 @@
   <title>FORJA — Centro de Treinamento | Sua primeira aula é por nossa conta</title>
   <meta name="description" content="Academia com musculação, treino funcional, luta e yoga. Estrutura completa, professores presentes e plano sem fidelidade. Agende sua aula experimental gratuita.">
 
-  <!-- ==========================================================
-       TIPOGRAFIA — Google Fonts
-       Oswald: condensada e pesada, usada nos títulos (H1/H2).
-       Poppins: geométrica e legível, usada em textos e botões.
-       ========================================================== -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    /* ==========================================================
-       1. DESIGN TOKENS
-       Todas as cores, fontes e espaçamentos ficam centralizados
-       aqui. Para trocar o tema da marca, edite apenas este bloco.
-       ========================================================== */
     :root {
-      /* Cores — base escura de alto contraste */
-      --cor-fundo:        #131313;  /* fundo principal da página */
-      --cor-superficie:   #1A1A1A;  /* cards, formulário, rodapé */
-      --cor-superficie-2: #202020;  /* placeholders de imagem */
-      --cor-borda:        #2B2B2B;  /* divisórias discretas */
+      --cor-fundo:        #131313;
+      --cor-superficie:   #1A1A1A;
+      --cor-superficie-2: #202020;
+      --cor-borda:        #2B2B2B;
 
-      /* Cor de destaque — usada SOMENTE em CTAs e pequenos ícones */
       --cor-destaque:     #F97316;
-      --cor-destaque-esc: #EA580C;  /* estado :active / gradiente */
+      --cor-destaque-esc: #EA580C;  
 
-      /* Texto */
       --cor-titulo:       #FFFFFF;
       --cor-texto:        #CCCCCC;
-      --cor-texto-fraco:  #808080;  /* legendas e metadados */
+      --cor-texto-fraco:  #808080;
 
-      /* Tipografia */
       --fonte-titulo: 'Oswald', 'Arial Narrow', sans-serif;
       --fonte-texto:  'Poppins', system-ui, -apple-system, sans-serif;
 
-      /* Escala de tipo fluida (mobile → desktop, sem media query) */
       --t-hero:  clamp(3rem, 12vw, 7.5rem);
       --t-h2:    clamp(2rem, 6vw, 3.5rem);
       --t-h3:    clamp(1.25rem, 3vw, 1.5rem);
       --t-corpo: clamp(1rem, 2.2vw, 1.0625rem);
 
-      /* Layout */
       --largura-max: 1200px;
       --gutter: clamp(1.25rem, 5vw, 3rem);
       --espaco-secao: clamp(4.5rem, 11vw, 8rem);
 
-      /* Movimento */
       --transicao: 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
     }
 
-    /* ==========================================================
-       2. RESET E BASE
-       ========================================================== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
@@ -82,19 +63,17 @@
       font-weight: 700;
     }
 
-    p { max-width: 62ch; }          /* linha de leitura confortável */
+    p { max-width: 62ch; }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
 
-    /* Foco visível para navegação por teclado (acessibilidade) */
     :focus-visible {
       outline: 2px solid var(--cor-destaque);
       outline-offset: 3px;
       border-radius: 2px;
     }
 
-    /* Container central reutilizável */
     .container {
       width: 100%;
       max-width: var(--largura-max);
@@ -104,14 +83,9 @@
 
     .secao { padding-block: var(--espaco-secao); }
 
-    /* Cabeçalho de seção: título + linha de apoio */
     .secao__titulo { font-size: var(--t-h2); margin-bottom: 0.75rem; }
     .secao__intro  { color: var(--cor-texto); margin-bottom: clamp(2.5rem, 6vw, 4rem); }
 
-    /* ==========================================================
-       3. BOTÕES E MICRO-INTERAÇÕES
-       O laranja aparece aqui e em poucos ícones — nada além disso.
-       ========================================================== */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -132,7 +106,6 @@
                   color var(--transicao);
     }
 
-    /* CTA principal — sólido no laranja */
     .btn--principal {
       background-color: var(--cor-destaque);
       color: #131313;
@@ -140,25 +113,18 @@
     }
     .btn--principal:hover {
       transform: scale(1.04);
-      box-shadow: 0 0 32px rgba(249, 115, 22, 0.45);  /* brilho no accent */
+      box-shadow: 0 0 32px rgba(249, 115, 22, 0.45); 
     }
     .btn--principal:active { transform: scale(0.99); background-color: var(--cor-destaque-esc); }
-
-    /* CTA secundário — contorno neutro que ganha o accent no hover */
     .btn--secundario { background-color: transparent; color: var(--cor-titulo); border-color: #3A3A3A; }
     .btn--secundario:hover { transform: scale(1.04); border-color: var(--cor-destaque); color: var(--cor-destaque); }
-
     .btn--grande { font-size: 1.0625rem; padding: 1.25rem 2.75rem; width: 100%; }
     @media (min-width: 600px) { .btn--grande { width: auto; } }
 
-    /* ==========================================================
-       4. CABEÇALHO FIXO
-       Fundo transparente no topo; ganha cor ao rolar (classe via JS).
-       ========================================================== */
     .cabecalho {
       position: fixed; inset: 0 0 auto 0; z-index: 100;
       padding-block: 1.125rem;
-      transition: background-color var(--transicao), border-color var(--transicao), padding var(--transicao);
+      transition: background-color var(--transicao), border-color var(--transicao), padding var(--transicao), top var(--transicao);
       border-bottom: 1px solid transparent;
     }
     .cabecalho.is-rolado {
@@ -169,14 +135,12 @@
     }
     .cabecalho__interno { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 
-    /* Logotipo: o ponto laranja é um dos raros usos do accent fora dos CTAs */
     .logo { font-family: var(--fonte-titulo); font-size: 1.5rem; font-weight: 700; color: var(--cor-titulo); letter-spacing: 0.06em; }
     .logo span { color: var(--cor-destaque); }
 
     .nav { display: none; }
     .nav__lista { display: flex; align-items: center; gap: 2rem; }
     .nav__link { font-size: 0.9375rem; font-weight: 500; color: var(--cor-texto); position: relative; padding-block: 0.25rem; transition: color var(--transicao); }
-    /* Sublinhado que cresce a partir da esquerda no hover */
     .nav__link::after {
       content: ''; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
       background-color: var(--cor-destaque);
@@ -186,7 +150,6 @@
     .nav__link:hover { color: var(--cor-titulo); }
     .nav__link:hover::after { transform: scaleX(1); }
 
-    /* Botão hambúrguer (só no mobile) */
     .menu-btn {
       display: inline-flex; flex-direction: column; justify-content: center; gap: 5px;
       width: 44px; height: 44px; padding: 0 10px;
@@ -197,7 +160,6 @@
     .menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
     .menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* Painel de navegação mobile */
     .nav-mobile {
       display: grid; grid-template-rows: 0fr;
       background-color: var(--cor-superficie);
@@ -218,25 +180,15 @@
       .menu-btn, .nav-mobile { display: none; }
     }
 
-    /* ==========================================================
-       5. HERO — tela cheia com "video background"
-       ========================================================== */
     .hero {
       position: relative;
       min-height: 100vh;
-      min-height: 100svh;          /* evita o "pulo" da barra no iOS */
+      min-height: 100svh;
       display: flex; align-items: flex-end;
       padding-block: 8rem 3.5rem;
       overflow: hidden;
     }
 
-    /* --- Placeholder do vídeo -------------------------------------
-       Simula um vídeo de fundo escuro com movimento lento.
-       PARA USAR VÍDEO REAL: substitua a div .hero__placeholder por
-       <video class="hero__video" autoplay muted loop playsinline
-              poster="capa.jpg"><source src="treino.mp4" type="video/mp4"></video>
-       e aplique: .hero__video { width:100%; height:100%; object-fit:cover; }
-       -------------------------------------------------------------- */
     .hero__media { position: absolute; inset: 0; z-index: 0; }
     .hero__placeholder {
       width: 100%; height: 100%;
@@ -253,7 +205,6 @@
       to   { transform: scale(1.16) translate3d(-2%, -1.5%, 0); }
     }
 
-    /* Véu escuro: garante contraste do texto sobre qualquer vídeo */
     .hero__veu {
       position: absolute; inset: 0; z-index: 1;
       background:
@@ -267,7 +218,7 @@
       font-size: 0.8125rem; font-weight: 500; color: var(--cor-texto);
       margin-bottom: 1.5rem;
     }
-    /* Ponto pulsante — detalhe pequeno no accent */
+
     .hero__ponto {
       width: 8px; height: 8px; border-radius: 50%;
       background-color: var(--cor-destaque);
@@ -280,14 +231,13 @@
       max-width: 14ch;
       margin-bottom: 1.5rem;
     }
-    /* Segunda linha em peso menor: cria hierarquia dentro do próprio H1 */
+
     .hero__titulo em { display: block; font-style: normal; font-weight: 500; color: #E4E4E4; }
 
     .hero__sub { font-size: clamp(1.0625rem, 2.6vw, 1.25rem); max-width: 48ch; margin-bottom: 2.5rem; }
 
     .hero__acoes { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
 
-    /* Faixa de dados no rodapé do hero */
     .hero__dados {
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1rem;
       padding-top: 2rem; border-top: 1px solid var(--cor-borda);
@@ -296,9 +246,6 @@
     .dado__rot { font-size: 0.8125rem; color: var(--cor-texto-fraco); margin-top: 0.35rem; }
     @media (min-width: 720px) { .hero__dados { grid-template-columns: repeat(4, 1fr); } }
 
-    /* ==========================================================
-       6. MODALIDADES — grid de cards
-       ========================================================== */
     .grid-modalidades { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
     @media (min-width: 640px) { .grid-modalidades { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1000px) { .grid-modalidades { grid-template-columns: repeat(4, 1fr); } }
@@ -313,7 +260,6 @@
     }
     .card:hover { transform: translateY(-6px); border-color: #3D3D3D; }
 
-    /* Placeholder de imagem: hachura diagonal + legenda do que entra ali */
     .ph {
       position: relative;
       aspect-ratio: 4 / 3;
@@ -326,7 +272,11 @@
       font-size: 0.75rem; color: #5E5E5E; text-align: center;
       padding: 0 1rem; line-height: 1.4;
     }
-    /* Cantoneira laranja: marca discreta de "área de foto" */
+    .ph__img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
     .ph::after {
       content: ''; position: absolute; top: 12px; left: 12px;
       width: 14px; height: 14px;
@@ -339,7 +289,6 @@
     .card__titulo { font-size: var(--t-h3); margin-bottom: 0.6rem; }
     .card__texto { font-size: 0.9375rem; color: var(--cor-texto); flex: 1; }
 
-    /* Metadados úteis (nível e duração) — informação, não enfeite */
     .card__meta {
       display: flex; gap: 1.5rem; margin-top: 1.25rem; padding-top: 1rem;
       border-top: 1px solid var(--cor-borda);
@@ -347,9 +296,6 @@
     }
     .card__meta b { display: block; color: var(--cor-texto); font-weight: 500; }
 
-    /* ==========================================================
-       7. PROVA SOCIAL
-       ========================================================== */
     .secao--alt { background-color: var(--cor-superficie); border-block: 1px solid var(--cor-borda); }
 
     .grid-depoimentos { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
@@ -368,7 +314,6 @@
     .depoimento__texto { font-size: 1rem; color: var(--cor-texto); flex: 1; margin-bottom: 1.75rem; }
     .depoimento__aluno { display: flex; align-items: center; gap: 0.875rem; }
 
-    /* Avatar temporário com iniciais — troque por foto real do aluno */
     .avatar {
       width: 46px; height: 46px; flex-shrink: 0; border-radius: 50%;
       background-color: var(--cor-superficie-2);
@@ -379,9 +324,6 @@
     .aluno__nome { font-weight: 600; color: var(--cor-titulo); font-size: 0.9375rem; line-height: 1.3; }
     .aluno__info { font-size: 0.8125rem; color: var(--cor-texto-fraco); }
 
-    /* ==========================================================
-       8. CAPTURA DE LEAD (formulário)
-       ========================================================== */
     .captura { display: grid; gap: 3rem; align-items: start; }
     @media (min-width: 940px) { .captura { grid-template-columns: 1fr 1fr; gap: 5rem; } }
 
@@ -420,7 +362,6 @@
     .erro { font-size: 0.8125rem; color: #F08A8A; min-height: 0; }
     .form__nota { font-size: 0.8125rem; color: var(--cor-texto-fraco); text-align: center; }
 
-    /* Mensagem de sucesso (exibida via JS) */
     .sucesso {
       display: none;
       text-align: center; padding: 2.5rem 1rem;
@@ -435,9 +376,6 @@
     .sucesso h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
     .sucesso p { margin-inline: auto; }
 
-    /* ==========================================================
-       9. RODAPÉ
-       ========================================================== */
     .rodape { background-color: var(--cor-superficie); border-top: 1px solid var(--cor-borda); padding-block: clamp(3.5rem, 8vw, 5rem) 2rem; }
     .rodape__grid { display: grid; gap: 2.5rem; grid-template-columns: 1fr; }
     @media (min-width: 720px) { .rodape__grid { grid-template-columns: 1.4fr 1fr 1fr; gap: 3rem; } }
@@ -451,8 +389,6 @@
     .rodape__lista a { transition: color var(--transicao); }
     .rodape__lista a:hover { color: var(--cor-destaque); }
     .rodape__texto { font-size: 0.9375rem; margin-top: 1rem; }
-
-    /* Ícones sociais */
     .sociais { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
     .social {
       width: 42px; height: 42px; border-radius: 50%;
@@ -469,11 +405,6 @@
       font-size: 0.8125rem; color: var(--cor-texto-fraco);
     }
 
-    /* ==========================================================
-       10. ANIMAÇÃO DE ENTRADA NO SCROLL
-       Estado inicial aplicado só quando o JS está ativo (classe .js
-       no <html>), para que a página continue legível sem JavaScript.
-       ========================================================== */
     .js .revelar {
       opacity: 0;
       transform: translateY(28px);
@@ -481,9 +412,6 @@
     }
     .js .revelar.is-visivel { opacity: 1; transform: none; }
 
-    /* Atraso em cascata para itens de grid (aplicado inline via JS) */
-
-    /* Respeita quem pediu menos animação no sistema operacional */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
@@ -494,7 +422,11 @@
 
 <body>
 
-  <!-- ============ CABEÇALHO ============ -->
+  <div id="aviso-teste" style="position:fixed; top:0; left:0; right:0; z-index:200; background:#F2622E;color:#111;text-align:center;padding:0.75rem 1rem;font-family:'Poppins',system-ui,-apple-system,sans-serif;font-size:0.85rem;line-height:1.5;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,0.4);transition:transform var(--transicao);">
+    Esta página foi desenvolvida apenas para fins de teste e demonstração. Nenhuma informação é real — nome, endereço, depoimentos, preços e contatos são inventados.<br>
+    Todas as imagens de pessoas foram geradas por Inteligência Artificial.
+  </div>
+
   <header class="cabecalho" id="cabecalho">
     <div class="container cabecalho__interno">
       <a href="#topo" class="logo">FORJA<span>.</span></a>
@@ -573,7 +505,9 @@
         <div class="grid-modalidades">
 
           <article class="card revelar">
-            <div class="ph"><p class="ph__rotulo">Foto real: sala de musculação, equipamentos e alunos treinando</p></div>
+            <div class="ph">
+              <img class="ph__img" src="img/musculacao.jpg" alt="Musculação" style="width:100%; height:260px; object-fit:cover; display:block;">
+            </div>
             <div class="card__corpo">
               <h3 class="card__titulo">Musculação</h3>
               <p class="card__texto">Ficha individual revisada a cada seis semanas, com professor na sala corrigindo execução em todos os horários.</p>
@@ -585,7 +519,9 @@
           </article>
 
           <article class="card revelar">
-            <div class="ph"><p class="ph__rotulo">Foto real: área funcional com cordas, kettlebells e turma em circuito</p></div>
+            <div class="ph">
+              <img class="ph__img" src="img/funcional.jpg" alt="Funcional" style="width:100%; height:260px; object-fit:cover; display:block;">
+            </div>
             <div class="card__corpo">
               <h3 class="card__titulo">Funcional</h3>
               <p class="card__texto">Circuitos em grupos de até 12 pessoas. Alta intensidade, com progressão adaptada para quem está voltando a treinar.</p>
@@ -597,7 +533,9 @@
           </article>
 
           <article class="card revelar">
-            <div class="ph"><p class="ph__rotulo">Foto real: tatame, sacos de pancada e aula de luta em andamento</p></div>
+            <div class="ph">
+              <img class="ph__img" src="img/luta.jpg" alt="Luta" style="width:100%; height:260px; object-fit:cover; display:block;">
+            </div>
             <div class="card__corpo">
               <h3 class="card__titulo">Luta</h3>
               <p class="card__texto">Muay thai e boxe com turmas separadas por experiência. Luvas e bandagens emprestadas nas duas primeiras aulas.</p>
@@ -609,7 +547,9 @@
           </article>
 
           <article class="card revelar">
-            <div class="ph"><p class="ph__rotulo">Foto real: sala de yoga com luz baixa, tapetes e turma em prática</p></div>
+            <div class="ph">
+              <img class="ph__img" src="img/yoga.jpg" alt="Yoga" style="width:100%; height:260px; object-fit:cover; display:block;">
+            </div>
             <div class="card__corpo">
               <h3 class="card__titulo">Yoga</h3>
               <p class="card__texto">Prática de mobilidade e respiração pela manhã e no fim da tarde. Funciona bem como recuperação entre dias pesados.</p>
@@ -808,7 +748,28 @@
     window.addEventListener('scroll', aoRolar, { passive: true });
     aoRolar();
 
-    /* ---------- 2. Menu mobile ---------- */
+    /* ---------- 1b. Aviso de teste: some ao rolar, volta no topo ---------- */
+    const aviso = document.getElementById('aviso-teste');
+    let alturaAviso = 0;
+
+    const medirAviso = () => {
+      aviso.style.transform = 'translateY(0)';
+      alturaAviso = aviso.offsetHeight;
+      document.body.style.paddingTop = alturaAviso + 'px';
+      atualizarAviso();
+    };
+
+    const atualizarAviso = () => {
+      const rolou = window.scrollY > 0;
+      aviso.style.transform = rolou ? 'translateY(-100%)' : 'translateY(0)';
+      cabecalho.style.top = rolou ? '0px' : alturaAviso + 'px';
+    };
+
+    medirAviso();
+    window.addEventListener('load', medirAviso);
+    window.addEventListener('resize', medirAviso);
+    window.addEventListener('scroll', atualizarAviso, { passive: true });
+
     const menuBtn = document.getElementById('menuBtn');
     const navMobile = document.getElementById('navMobile');
 
@@ -819,7 +780,6 @@
       navMobile.classList.toggle('is-aberto', !aberto);
     });
 
-    // Fecha o menu ao clicar em qualquer link interno
     navMobile.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         menuBtn.setAttribute('aria-expanded', 'false');
@@ -828,10 +788,6 @@
       });
     });
 
-    /* ---------- 3. Revelar elementos no scroll ----------
-       IntersectionObserver é mais leve que ouvir o evento de scroll.
-       Itens irmãos entram em cascata com pequeno atraso.
-    ------------------------------------------------------ */
     const alvos = document.querySelectorAll('.revelar');
 
     if ('IntersectionObserver' in window) {
@@ -848,10 +804,9 @@
 
       alvos.forEach(el => observador.observe(el));
     } else {
-      alvos.forEach(el => el.classList.add('is-visivel'));  // fallback
+      alvos.forEach(el => el.classList.add('is-visivel'));  
     }
 
-    /* ---------- 4. Máscara de telefone ---------- */
     const whatsapp = document.getElementById('whatsapp');
     whatsapp.addEventListener('input', (e) => {
       let v = e.target.value.replace(/\D/g, '').slice(0, 11);
@@ -861,10 +816,6 @@
       e.target.value = v;
     });
 
-    /* ---------- 5. Validação e envio do formulário ----------
-       Substitua o bloco marcado por um fetch() para o seu CRM,
-       webhook ou serviço de e-mail.
-    --------------------------------------------------------- */
     const form = document.getElementById('formMatricula');
     const sucesso = document.getElementById('sucesso');
     const sucessoTexto = document.getElementById('sucessoTexto');
@@ -905,7 +856,6 @@
       sucesso.classList.add('is-visivel');
     });
 
-    /* ---------- 6. Ano atual no rodapé ---------- */
     document.getElementById('ano').textContent = new Date().getFullYear();
   </script>
 
